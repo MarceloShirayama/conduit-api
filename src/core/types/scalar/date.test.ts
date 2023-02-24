@@ -2,7 +2,7 @@ import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 import { getErrorMessage, mapAll } from "../../../test/config/fixtures";
 
-import { date } from "./date";
+import { date } from "./";
 
 describe("Date scalar", () => {
   const validDates: unknown[] = [
