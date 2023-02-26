@@ -7,7 +7,7 @@ import { validateUser } from "./";
 
 export type OutsideRegister<A> = (data: CreateUserType) => Promise<A>;
 
-type Register = <A>(
+export type Register = <A>(
   outsideRegister: OutsideRegister<A>
 ) => (data: CreateUserType) => TE.TaskEither<Error, A>;
 

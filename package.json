@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig-build.json",
-    "start": "npm run build && node dist/main/server.js",
-    "dev": "tsx watch src/main/server.ts",
+    "start": "npm run build && node dist/index.js",
+    "dev": "tsx watch src/index.ts",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest --passWithNoTests"
   },
