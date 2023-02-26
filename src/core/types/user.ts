@@ -6,16 +6,22 @@ import {
   BioType,
   TokenType,
   ImageUrlType,
+  SlugType,
 } from "./scalar";
 
-export const UserType = t.strict(
-  {
-    email: EmailType,
-    password: PasswordType,
-    token: TokenType,
-    bio: BioType,
-    image: ImageUrlType,
-  },
+const UserRequiredType = t.strict({
+  email: EmailType,
+  username: SlugType,
+});
+
+const UserOptionalType = t.partial({
+  token: TokenType,
+  bio: BioType,
+  image: ImageUrlType,
+});
+
+export const UserType = t.intersection(
+  [UserRequiredType, UserOptionalType],
   "UserType"
 );
 

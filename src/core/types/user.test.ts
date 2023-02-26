@@ -9,10 +9,7 @@ describe("User type", () => {
   const validUsers: unknown[] = [
     {
       email: "john@mail.com",
-      password: "12345678",
-      token: "any-token",
-      bio: "a".repeat(10),
-      image: "http://image_url.com",
+      username: "john",
     },
   ];
 
@@ -20,7 +17,7 @@ describe("User type", () => {
     {},
     {
       email: "invalid-email.com",
-      password: "1234567",
+      username: "j",
     },
   ];
 
@@ -38,10 +35,7 @@ describe("User type", () => {
     (invalidUser) => {
       expect(PathReporter.report(UserType.decode(invalidUser))).toEqual([
         "Invalid email.",
-        "Invalid password. Password must contain at least 8 characters.",
-        "Invalid token.",
-        "Invalid bio.",
-        "Invalid image url.",
+        "Invalid slug. Please, use alphanumeric characters, dash and/or numbers.",
       ]);
     }
   );
