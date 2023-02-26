@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/function";
 
-import { mapAll } from "../../test/config/fixtures";
-import { CreateUserType } from "../types";
+import { mapAll } from "../../../test/config/fixtures";
+import { CreateUserType } from "../../types";
 import { OutsideRegister, register } from "./";
 
 describe("Register use case", () => {
