@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 
-export function unsafe<T>(value: string): T {
+export function unsafe<T>(value: any): T {
   return value as any;
 }
 
