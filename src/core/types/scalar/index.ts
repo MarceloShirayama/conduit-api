@@ -6,7 +6,7 @@ export * from "./description";
 export * from "./email";
 export * from "./favorites-count";
 export * from "./id";
-export * from "./image";
+export * from "./image-url";
 export * from "./password";
 export * from "./slug";
 export * from "./tag";
