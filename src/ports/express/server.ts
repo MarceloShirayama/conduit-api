@@ -5,7 +5,7 @@ import * as TE from "fp-ts/TaskEither";
 import {
   OutsideRegisterType,
   register,
-} from "../../adapters/user/register-adapter";
+} from "../../adapters/use-cases/user/register-adapter";
 
 const PORT = Number(process.env.PORT) || 3000;
 

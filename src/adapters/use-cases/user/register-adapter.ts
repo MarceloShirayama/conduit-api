@@ -1,9 +1,9 @@
-import { CreateUserType } from "../../core/types";
+import { CreateUserType } from "../../../core/types";
 import {
   OutsideRegister,
   Register,
   register as registerCore,
-} from "../../core/use-cases/register";
+} from "../../../core/use-cases/register";
 
 export type OutsideRegisterType = OutsideRegister<{
   success: boolean;
