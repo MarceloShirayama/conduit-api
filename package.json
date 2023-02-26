@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "start": "npm run build && node dist/main/server.js",
     "dev": "tsx watch src/main/server.ts",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest --passWithNoTests"
@@ -22,6 +24,7 @@
     "io-ts": "^2.2.20",
     "io-ts-types": "^0.5.19",
     "monocle-ts": "^2.3.13",
-    "newtype-ts": "^0.3.5"
+    "newtype-ts": "^0.3.5",
+    "rimraf": "^4.1.2"
   }
 }

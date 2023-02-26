@@ -15,6 +15,10 @@ export const mapAll: MapAll = (fn) => (data) => {
   return pipe(data, TE.map(fn), TE.mapLeft(fn));
 };
 
-export function getErrorMessage(error: unknown): string {
-  return Array.isArray(error) ? error[0].message : "";
-}
+// export function getErrorMessage(error: unknown): string {
+//   return Array.isArray(error) ? error[0].message : "";
+// }
+
+// export function getErrorMessages(errors: unknown) {
+//   return (errors as Array<t.ValidationError>).map((error) => error.message);
+// }

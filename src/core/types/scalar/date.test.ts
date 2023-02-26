@@ -1,8 +1,9 @@
 import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
-import { getErrorMessage, mapAll } from "../../../test/config/fixtures";
+import { PathReporter } from "io-ts/PathReporter";
 
-import { date } from "./";
+import { mapAll } from "../../../test/config/fixtures";
+import { DateType } from "./";
 
 describe("Date scalar", () => {
   const validDates: unknown[] = [
@@ -15,7 +16,7 @@ describe("Date scalar", () => {
   it.each(validDates)("Should validate date properly", (validDate) => {
     pipe(
       validDate,
-      date.decode,
+      DateType.decode,
       TE.fromEither,
       mapAll((result) => expect(result).toBe(validDate))
     )();
@@ -23,15 +24,9 @@ describe("Date scalar", () => {
 
   it.each(invalidDates)(
     "Should return an error if date is invalid",
-    (invalidDate) => {
-      pipe(
-        invalidDate,
-        date.decode,
-        TE.fromEither,
-        mapAll((error) =>
-          expect(getErrorMessage(error)).toBe(`${invalidDate} is Invalid date.`)
-        )
-      )();
-    }
+    (invalidDate) =>
+      expect(PathReporter.report(DateType.decode(invalidDate))).toEqual([
+        "Invalid date.",
+      ])
   );
 });

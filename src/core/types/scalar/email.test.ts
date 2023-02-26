@@ -1,8 +1,9 @@
 import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
-import { getErrorMessage, mapAll } from "../../../test/config/fixtures";
+import { PathReporter } from "io-ts/PathReporter";
 
-import { email } from "./";
+import { mapAll } from "../../../test/config/fixtures";
+import { EmailType } from "./";
 
 describe("Email scalar", () => {
   const validEmails: unknown[] = ["john@mail.com"];
@@ -11,7 +12,7 @@ describe("Email scalar", () => {
   it.each(validEmails)("Should validate email properly", (validEmail) => {
     pipe(
       validEmail,
-      email.decode,
+      EmailType.decode,
       TE.fromEither,
       mapAll((result) => expect(result).toBe(validEmail))
     )();
@@ -19,17 +20,9 @@ describe("Email scalar", () => {
 
   it.each(invalidEmails)(
     "Should return an error if email is invalid",
-    (invalidEmail) => {
-      pipe(
-        invalidEmail,
-        email.decode,
-        TE.fromEither,
-        mapAll((error) =>
-          expect(getErrorMessage(error)).toBe(
-            `${invalidEmail} is Invalid email.`
-          )
-        )
-      )();
-    }
+    (invalidEmail) =>
+      expect(PathReporter.report(EmailType.decode(invalidEmail))).toEqual([
+        "Invalid email.",
+      ])
   );
 });
