@@ -2,10 +2,8 @@ import express, { Request, Response } from "express";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 
-import {
-  OutsideRegisterType,
-  register,
-} from "../../adapters/use-cases/user/register-adapter";
+import { register } from "../../adapters/use-cases/user/register-adapter";
+import { userRegister } from "../../adapters/ports/db";
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -14,17 +12,10 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const registerOk: OutsideRegisterType = async (data) => {
-  return {
-    success: true,
-    data,
-  };
-};
-
 app.post("/api/users", async (req: Request, res: Response) => {
   pipe(
     req.body.user,
-    register(registerOk),
+    register(userRegister),
     TE.map((result) => res.json(result)),
     TE.mapLeft((error) => res.status(400).json({ error: error.message }))
   )();
