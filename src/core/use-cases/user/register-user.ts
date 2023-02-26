@@ -3,7 +3,7 @@ import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 
 import { CreateUserType } from "core/types";
-import { validateUser } from "./";
+import { validateUser } from ".";
 
 export type OutsideRegister<A> = (data: CreateUserType) => Promise<A>;
 

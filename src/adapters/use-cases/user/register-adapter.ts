@@ -3,7 +3,7 @@ import {
   OutsideRegister,
   Register,
   register as registerCore,
-} from "../../../core/use-cases/user/register";
+} from "../../../core/use-cases/user/register-user";
 
 export type OutsideRegisterType = OutsideRegister<{ user: UserType }>;
 

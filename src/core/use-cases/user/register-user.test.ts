@@ -2,9 +2,9 @@ import { pipe } from "fp-ts/function";
 
 import { mapAll } from "../../../test/config/fixtures";
 import { CreateUserType } from "../../types";
-import { OutsideRegister, register } from "./";
+import { OutsideRegister, register } from ".";
 
-describe("Register use case", () => {
+describe("Register user use case", () => {
   const registerOk: OutsideRegister<string> = async (data) => {
     return `Usuário ${data.username} cadastrado com sucesso!`;
   };
