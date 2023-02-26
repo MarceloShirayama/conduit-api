@@ -1,4 +1,4 @@
-import { OutsideRegisterType } from "../../use-cases/user/register-adapter";
+import { OutsideRegisterType } from "../../use-cases/user/register-user-adapter";
 
 export const outsideRegister: OutsideRegisterType = async (data) => {
   return {
