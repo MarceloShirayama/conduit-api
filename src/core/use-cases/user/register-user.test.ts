@@ -2,7 +2,7 @@ import { pipe } from "fp-ts/function";
 
 import { mapAll } from "../../../test/config/fixtures";
 import { CreateUserType } from "../../types";
-import { OutsideRegister, register } from ".";
+import { OutsideRegister, registerUser } from ".";
 
 describe("Register user use case", () => {
   const registerOk: OutsideRegister<string> = async (data) => {
@@ -34,7 +34,7 @@ describe("Register user use case", () => {
   it("Should register an user with success", () => {
     pipe(
       data,
-      register(registerOk),
+      registerUser(registerOk),
       mapAll((result) =>
         expect(result).toBe(`Usuário ${data.username} cadastrado com sucesso!`)
       )
@@ -44,7 +44,7 @@ describe("Register user use case", () => {
   it("Should not accept a register from an user with invalid username", () => {
     pipe(
       dataWithWrongUsername,
-      register(registerOk),
+      registerUser(registerOk),
       mapAll((error) =>
         expect(error).toEqual(
           new Error(
@@ -58,7 +58,7 @@ describe("Register user use case", () => {
   it("Should not accept a register from an user with invalid email and password", () => {
     pipe(
       dataWithWrongEmailAndPassword,
-      register(registerOk),
+      registerUser(registerOk),
       mapAll((error) =>
         expect(error).toEqual(
           new Error(
@@ -72,7 +72,7 @@ describe("Register user use case", () => {
   it("Should return left if register function throws an error", () => {
     pipe(
       data,
-      register(registerFail),
+      registerUser(registerFail),
       mapAll((error) => expect(error).toEqual(new Error("External error!")))
     )();
   });

@@ -7,11 +7,11 @@ import { validateUser } from ".";
 
 export type OutsideRegister<A> = (data: CreateUserType) => Promise<A>;
 
-export type Register = <A>(
+export type RegisterUser = <A>(
   outsideRegister: OutsideRegister<A>
 ) => (data: CreateUserType) => TE.TaskEither<Error, A>;
 
-export const register: Register = (outsideRegister) => (data) => {
+export const registerUser: RegisterUser = (outsideRegister) => (data) => {
   return pipe(
     data,
     validateUser,
