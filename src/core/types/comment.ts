@@ -9,11 +9,11 @@ const ParcialCommentType = t.strict({
   updatedAt: DateType,
 });
 
-export type AuthorType = {
+type AuthorType = {
   author: ProfileType;
 };
 
-export const AuthorType: t.Type<AuthorType> = t.recursion("AuthorType", () =>
+const AuthorType: t.Type<AuthorType> = t.recursion("AuthorType", () =>
   t.type(
     {
       author: ProfileType,
