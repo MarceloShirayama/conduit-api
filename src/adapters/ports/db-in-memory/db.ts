@@ -1,12 +1,9 @@
 import slugify from "slugify";
 
-import {
-  OutsideAddCommentToAnArticle,
-  OutsideRegisterArticle,
-} from "../../use-cases/article";
-import { OutsideRegisterUser } from "../../use-cases/user";
+import * as article from "../../use-cases/article";
+import * as user from "../../use-cases/user";
 
-export const outsideRegister: OutsideRegisterUser = async (data) => {
+export const outsideRegister: user.OutsideRegisterUser = async (data) => {
   return {
     user: {
       email: data.email,
@@ -18,7 +15,9 @@ export const outsideRegister: OutsideRegisterUser = async (data) => {
   };
 };
 
-export const outsideRegisterArticle: OutsideRegisterArticle = async (data) => {
+export const outsideRegisterArticle: article.OutsideRegisterArticle = async (
+  data
+) => {
   const dateNow = new Date().toISOString();
 
   return {
@@ -42,7 +41,7 @@ export const outsideRegisterArticle: OutsideRegisterArticle = async (data) => {
   };
 };
 
-export const outsideAddCommentToAnArticle: OutsideAddCommentToAnArticle =
+export const outsideAddCommentToAnArticle: article.OutsideAddCommentToAnArticle =
   async (data) => {
     const dateNow = new Date().toISOString();
 

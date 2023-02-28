@@ -2,19 +2,12 @@ import express, { Request, Response } from "express";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 
-import {
-  addCommentToAnArticleInDB,
-  createArticleInDB,
-  createUserInDB,
-} from "../../adapters/ports/db";
-import {
-  addCommentToAnArticleAdapter,
-  registerArticleAdapter,
-} from "../../adapters/use-cases/article";
-import { registerUser } from "../../adapters/use-cases/user";
-import { getEnvironmentVariable } from "./../../helpers";
+import * as db from "../../adapters/ports/db";
+import * as article from "../../adapters/use-cases/article";
+import * as user from "../../adapters/use-cases/user";
+import * as helpers from "./../../helpers";
 
-const PORT = getEnvironmentVariable("PORT");
+const PORT = helpers.getEnvironmentVariable("PORT");
 
 const app = express();
 
@@ -24,7 +17,7 @@ app.use(express.json());
 app.post("/api/users", async (req: Request, res: Response) => {
   pipe(
     req.body.user,
-    registerUser(createUserInDB),
+    user.registerUser(db.createUserInDB),
     TE.map((result) => res.json(result)),
     TE.mapLeft((error) => res.status(400).json(getError(error.message)))
   )();
@@ -33,7 +26,7 @@ app.post("/api/users", async (req: Request, res: Response) => {
 app.post("/api/articles", async (req: Request, res: Response) => {
   pipe(
     req.body.article,
-    registerArticleAdapter(createArticleInDB),
+    article.registerArticleAdapter(db.createArticleInDB),
     TE.map((result) => res.json(result)),
     TE.mapLeft((error) => res.status(400).json(getError(error.message)))
   )();
@@ -44,7 +37,7 @@ app.post(
   async (req: Request, res: Response) => {
     pipe(
       req.body.comment,
-      addCommentToAnArticleAdapter(addCommentToAnArticleInDB),
+      article.addCommentToAnArticleAdapter(db.addCommentToAnArticleInDB),
       TE.map((result) => res.json(result)),
       TE.mapLeft((error) => res.status(400).json(getError(error.message)))
     )();

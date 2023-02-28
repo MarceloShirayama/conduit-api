@@ -1,19 +1,13 @@
-import {
-  OutsideAddCommentToAnArticle,
-  OutsideRegisterArticle,
-} from "../../use-cases/article";
-import { OutsideRegisterUser } from "../../use-cases/user";
-import {
-  outsideAddCommentToAnArticle,
-  outsideRegister,
-  outsideRegisterArticle,
-} from "../db-in-memory";
+import * as article from "../../use-cases/article";
+import * as user from "../../use-cases/user";
+import * as dbInMemory from "../db-in-memory";
 
-export const createUserInDB: OutsideRegisterUser = (data) =>
-  outsideRegister(data);
+export const createUserInDB: user.OutsideRegisterUser = (data) =>
+  dbInMemory.outsideRegister(data);
 
-export const createArticleInDB: OutsideRegisterArticle = (data) =>
-  outsideRegisterArticle(data);
+export const createArticleInDB: article.OutsideRegisterArticle = (data) =>
+  dbInMemory.outsideRegisterArticle(data);
 
-export const addCommentToAnArticleInDB: OutsideAddCommentToAnArticle = (data) =>
-  outsideAddCommentToAnArticle(data);
+export const addCommentToAnArticleInDB: article.OutsideAddCommentToAnArticle = (
+  data
+) => dbInMemory.outsideAddCommentToAnArticle(data);

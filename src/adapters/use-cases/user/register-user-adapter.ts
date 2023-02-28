@@ -1,14 +1,11 @@
-import { OutsideFunction } from "core/use-cases/ports";
-import { CreateUserType, UserType } from "../../../core/types";
-import {
-  RegisterUser,
-  registerUser as registerUserCore,
-} from "../../../core/use-cases/user/register-user";
+import * as ports from "core/use-cases/ports";
+import * as types from "../../../core/types";
+import * as user from "../../../core/use-cases/user";
 
-export type OutsideRegisterUser = OutsideFunction<
-  CreateUserType,
-  { user: UserType }
+export type OutsideRegisterUser = ports.OutsideFunction<
+  types.CreateUserType,
+  { user: types.UserType }
 >;
 
-export const registerUser: RegisterUser = (outsideRegister) => (data) =>
-  registerUserCore(outsideRegister)(data);
+export const registerUser: user.RegisterUser = (outsideRegister) => (data) =>
+  user.registerUser(outsideRegister)(data);
