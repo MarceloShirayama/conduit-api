@@ -5,8 +5,9 @@ import * as TE from "fp-ts/TaskEither";
 import { registerUser } from "../../adapters/use-cases/user/register-user-adapter";
 import { createUserInDB, createArticleInDB } from "../../adapters/ports/db";
 import { registerArticle } from "../../adapters/use-cases/article/register-article-adapter";
+import { getEnvironmentVariable } from "./../../helpers";
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = getEnvironmentVariable("PORT");
 
 const app = express();
 
