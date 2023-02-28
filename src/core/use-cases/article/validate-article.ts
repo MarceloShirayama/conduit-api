@@ -3,12 +3,9 @@ import { pipe } from "fp-ts/function";
 import { failure } from "io-ts/PathReporter";
 
 import { CreateArticleType } from "../../types";
+import { ValidateType } from "../ports";
 
-export type ValidateArticle = (
-  data: CreateArticleType
-) => E.Either<Error, unknown>;
-
-export const validateArticle: ValidateArticle = (data) => {
+export const validateArticle: ValidateType<CreateArticleType> = (data) => {
   return pipe(
     data,
     CreateArticleType.decode,

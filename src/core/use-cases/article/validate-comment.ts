@@ -3,12 +3,9 @@ import { pipe } from "fp-ts/lib/function";
 import { failure } from "io-ts/lib/PathReporter";
 
 import { CreateCommentType } from "../../types";
+import { ValidateType } from "../ports";
 
-export type ValidateComment = (
-  data: CreateCommentType
-) => E.Either<Error, unknown>;
-
-export const validateComment: ValidateComment = (data) => {
+export const validateComment: ValidateType<CreateCommentType> = (data) => {
   return pipe(
     data,
     CreateCommentType.decode,
