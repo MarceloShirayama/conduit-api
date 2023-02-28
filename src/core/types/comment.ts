@@ -1,26 +1,14 @@
 import * as t from "io-ts";
+import { AuthorType } from "./author";
 
-import { ProfileType } from "./";
-import { DateType, IdType } from "./scalar";
+import { BodyType, DateType, IdType } from "./scalar";
 
 const ParcialCommentType = t.strict({
   id: IdType,
   createdAt: DateType,
   updatedAt: DateType,
+  body: BodyType,
 });
-
-type AuthorType = {
-  author: ProfileType;
-};
-
-const AuthorType: t.Type<AuthorType> = t.recursion("AuthorType", () =>
-  t.type(
-    {
-      author: ProfileType,
-    },
-    "AuthorType"
-  )
-);
 
 export const CommentType = t.intersection(
   [ParcialCommentType, AuthorType],

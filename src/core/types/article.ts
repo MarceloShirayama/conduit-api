@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { ProfileType } from "./";
+import { AuthorType, ProfileType } from "./";
 import {
   BodyType,
   BooleanType,
@@ -23,19 +23,6 @@ const ParcialArticle = t.type({
   favorited: BooleanType,
   favoritesCount: PositiveType,
 });
-
-type AuthorType = {
-  author?: ProfileType;
-};
-
-const AuthorType: t.Type<AuthorType> = t.recursion("AuthorType", () =>
-  t.partial(
-    {
-      author: ProfileType,
-    },
-    "AuthorType"
-  )
-);
 
 export const ArticleType = t.intersection(
   [ParcialArticle, AuthorType],
