@@ -3,12 +3,11 @@ import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 
 import { CreateCommentType } from "../../types";
+import { OutsideFunction } from "../ports";
 import { validateComment } from "./validate-comment";
 
-export type OutsideCreateComment<A> = (data: CreateCommentType) => Promise<A>;
-
 export type AddCommentToAnArticle = <A>(
-  outsideCreateComment: OutsideCreateComment<A>
+  outsideCreateComment: OutsideFunction<CreateCommentType, A>
 ) => (data: CreateCommentType) => TE.TaskEither<Error, A>;
 
 export const addCommentToAnArticle: AddCommentToAnArticle =

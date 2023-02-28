@@ -2,7 +2,8 @@ import { pipe } from "fp-ts/lib/function";
 
 import { mapAll, unsafe } from "../../../test/config/fixtures";
 import { CreateArticleType } from "../../types";
-import { OutsideRegister, registerArticle } from "./register-article";
+import { OutsideFunction } from "../ports";
+import { registerArticle } from "./register-article";
 
 describe("Register article use case", () => {
   const datas: CreateArticleType[] = [
@@ -39,10 +40,11 @@ describe("Register article use case", () => {
     tagList: ["any-tag"],
   };
 
-  const registerOk: OutsideRegister<string> = async (data: CreateArticleType) =>
-    `Article ${data.title} successfully created!`;
+  const registerOk: OutsideFunction<CreateArticleType, string> = async (
+    data: CreateArticleType
+  ) => `Article ${data.title} successfully created!`;
 
-  const registerFail: OutsideRegister<never> = async (_data) => {
+  const registerFail: OutsideFunction<unknown, never> = async (_data) => {
     throw new Error("External error!");
   };
 

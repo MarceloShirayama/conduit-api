@@ -4,11 +4,10 @@ import * as TE from "fp-ts/TaskEither";
 
 import { CreateUserType } from "core/types";
 import { validateUser } from ".";
-
-export type OutsideRegister<A> = (data: CreateUserType) => Promise<A>;
+import { OutsideFunction } from "../ports";
 
 export type RegisterUser = <A>(
-  outsideRegister: OutsideRegister<A>
+  outsideRegister: OutsideFunction<CreateUserType, A>
 ) => (data: CreateUserType) => TE.TaskEither<Error, A>;
 
 export const registerUser: RegisterUser = (outsideRegister) => (data) => {

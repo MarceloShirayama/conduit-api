@@ -2,14 +2,15 @@ import { pipe } from "fp-ts/function";
 
 import { mapAll } from "../../../test/config/fixtures";
 import { CreateUserType } from "../../types";
-import { OutsideRegister, registerUser } from ".";
+import { registerUser } from ".";
+import { OutsideFunction } from "../ports";
 
 describe("Register user use case", () => {
-  const registerOk: OutsideRegister<string> = async (data) => {
+  const registerOk: OutsideFunction<CreateUserType, string> = async (data) => {
     return `Usuário ${data.username} cadastrado com sucesso!`;
   };
 
-  const registerFail: OutsideRegister<never> = async (data) => {
+  const registerFail: OutsideFunction<unknown, never> = async (data) => {
     throw new Error("External error!");
   };
 

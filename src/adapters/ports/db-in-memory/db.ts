@@ -1,9 +1,9 @@
 import slugify from "slugify";
 
-import { OutsideRegisterType } from "../../use-cases/user/register-user-adapter";
-import { OutsideRegisterType as OutsideRegisterArticleType } from "../../use-cases/article/register-article-adapter";
+import { OutsideRegisterUser } from "../../use-cases/user/register-user-adapter";
+import { OutsideRegisterArticle } from "../../use-cases/article/register-article-adapter";
 
-export const outsideRegister: OutsideRegisterType = async (data) => {
+export const outsideRegister: OutsideRegisterUser = async (data) => {
   return {
     user: {
       email: data.email,
@@ -15,9 +15,7 @@ export const outsideRegister: OutsideRegisterType = async (data) => {
   };
 };
 
-export const outsideRegisterArticle: OutsideRegisterArticleType = async (
-  data
-) => {
+export const outsideRegisterArticle: OutsideRegisterArticle = async (data) => {
   const dateNow = new Date().toISOString();
   return {
     article: {

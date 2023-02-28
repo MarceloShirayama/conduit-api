@@ -1,8 +1,9 @@
 import { pipe } from "fp-ts/lib/function";
 
 import { mapAll, unsafe } from "../../../test/config/fixtures";
+import { OutsideFunction } from "../ports";
 import { CreateCommentType } from "./../../types";
-import { addCommentToAnArticle, OutsideCreateComment } from "./add-comment";
+import { addCommentToAnArticle } from "./add-comment";
 
 describe("Add comment use case", () => {
   const datas: CreateCommentType[] = [
@@ -19,11 +20,13 @@ describe("Add comment use case", () => {
     body: unsafe(10),
   };
 
-  const addCommentOK: OutsideCreateComment<string> = async (data) => {
+  const addCommentOK: OutsideFunction<CreateCommentType, string> = async (
+    data
+  ) => {
     return `Comment "${data.body}" added successfully.`;
   };
 
-  const addCommentFail: OutsideCreateComment<never> = async (data) => {
+  const addCommentFail: OutsideFunction<unknown, never> = async (data) => {
     throw new Error("External error!");
   };
 

@@ -3,12 +3,11 @@ import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 
 import { CreateArticleType } from "../../types";
+import { OutsideFunction } from "../ports";
 import { validateArticle } from "./validate-article";
 
-export type OutsideRegister<A> = (data: CreateArticleType) => Promise<A>;
-
 export type RegisterArticle = <A>(
-  outsideRegister: OutsideRegister<A>
+  outsideRegister: OutsideFunction<CreateArticleType, A>
 ) => (data: CreateArticleType) => TE.TaskEither<Error, A>;
 
 export const registerArticle: RegisterArticle = (outsideRegister) => (data) => {
