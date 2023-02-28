@@ -7,9 +7,11 @@ import {
   createArticleInDB,
   createUserInDB,
 } from "../../adapters/ports/db";
-import { addCommentToAnArticleAdapter } from "../../adapters/use-cases/article/add-comment-to-an-article-adapter";
-import { registerArticleAdapter } from "../../adapters/use-cases/article/register-article-adapter";
-import { registerUser } from "../../adapters/use-cases/user/register-user-adapter";
+import {
+  addCommentToAnArticleAdapter,
+  registerArticleAdapter,
+} from "../../adapters/use-cases/article";
+import { registerUser } from "../../adapters/use-cases/user";
 import { getEnvironmentVariable } from "./../../helpers";
 
 const PORT = getEnvironmentVariable("PORT");

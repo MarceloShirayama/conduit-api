@@ -1,8 +1,10 @@
 import slugify from "slugify";
 
-import { OutsideRegisterUser } from "../../use-cases/user/register-user-adapter";
-import { OutsideRegisterArticle } from "../../use-cases/article/register-article-adapter";
-import { OutsideAddCommentToAnArticle } from "../../use-cases/article/add-comment-to-an-article-adapter";
+import {
+  OutsideAddCommentToAnArticle,
+  OutsideRegisterArticle,
+} from "../../use-cases/article";
+import { OutsideRegisterUser } from "../../use-cases/user";
 
 export const outsideRegister: OutsideRegisterUser = async (data) => {
   return {
