@@ -44,14 +44,16 @@ export const outsideRegisterArticle: article.OutsideRegisterArticle = async (
 
 export const outsideAddCommentToAnArticle: comment.OutsideAddCommentToAnArticle =
   async (data) => {
-    const dateNow = new Date().toISOString();
+    const dateNow = new Date();
+    const dateString = dateNow.toISOString();
+    const dateNumber = dateNow.getTime();
 
     return {
       comment: {
         // TODO: use uuid in id
-        id: 1,
-        createdAt: dateNow,
-        updatedAt: dateNow,
+        id: dateNumber,
+        createdAt: dateString,
+        updatedAt: dateString,
         body: data.body,
         // author: {
         //   username: "jake",
