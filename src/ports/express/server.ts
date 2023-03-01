@@ -14,6 +14,8 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.disable("x-powered-by");
+app.disable("etag");
 
 app.post("/api/users", async (req: Request, res: Response) => {
   pipe(
