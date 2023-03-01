@@ -2,8 +2,8 @@ import { pipe } from "fp-ts/lib/function";
 
 import { mapAll, unsafe } from "../../../test/config/fixtures";
 import { OutsideFunction } from "../ports";
-import { CreateCommentType } from "./../../types";
-import { addCommentToAnArticle } from "./add-comment";
+import { CreateCommentType } from "../../types";
+import { addCommentToAnArticle } from "./";
 
 describe("Add comment use case", () => {
   const datas: CreateCommentType[] = [
