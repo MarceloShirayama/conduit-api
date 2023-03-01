@@ -1,6 +1,7 @@
 import slugify from "slugify";
 
 import * as article from "../../use-cases/article";
+import * as comment from "../../use-cases/comment";
 import * as user from "../../use-cases/user";
 
 export const outsideRegisterUser: user.OutsideRegisterUser = async (data) => {
@@ -41,7 +42,7 @@ export const outsideRegisterArticle: article.OutsideRegisterArticle = async (
   };
 };
 
-export const outsideAddCommentToAnArticle: article.OutsideAddCommentToAnArticle =
+export const outsideAddCommentToAnArticle: comment.OutsideAddCommentToAnArticle =
   async (data) => {
     const dateNow = new Date().toISOString();
 

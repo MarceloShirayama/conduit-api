@@ -4,6 +4,7 @@ import * as TE from "fp-ts/TaskEither";
 
 import * as db from "../../adapters/ports/db";
 import * as article from "../../adapters/use-cases/article";
+import * as comment from "../../adapters/use-cases/comment";
 import * as user from "../../adapters/use-cases/user";
 import * as helpers from "./../../helpers";
 
@@ -37,7 +38,7 @@ app.post(
   async (req: Request, res: Response) => {
     pipe(
       req.body.comment,
-      article.addCommentToAnArticleAdapter(db.addCommentToAnArticleInDB),
+      comment.addCommentToAnArticleAdapter(db.addCommentToAnArticleInDB),
       TE.map((result) => res.json(result)),
       TE.mapLeft((error) => res.status(400).json(getError(error.message)))
     )();
