@@ -3,7 +3,7 @@ import * as user from "../../use-cases/user";
 import * as dbInMemory from "../db-in-memory";
 
 export const createUserInDB: user.OutsideRegisterUser = (data) =>
-  dbInMemory.outsideRegister(data);
+  dbInMemory.outsideRegisterUser(data);
 
 export const createArticleInDB: article.OutsideRegisterArticle = (data) =>
   dbInMemory.outsideRegisterArticle(data);

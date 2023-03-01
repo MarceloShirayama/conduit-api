@@ -3,7 +3,7 @@ import slugify from "slugify";
 import * as article from "../../use-cases/article";
 import * as user from "../../use-cases/user";
 
-export const outsideRegister: user.OutsideRegisterUser = async (data) => {
+export const outsideRegisterUser: user.OutsideRegisterUser = async (data) => {
   return {
     user: {
       email: data.email,
