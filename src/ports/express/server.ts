@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 
@@ -17,6 +17,8 @@ app.use(express.json());
 app.disable("x-powered-by");
 app.disable("etag");
 
+//public
+
 app.post("/api/users", async (req: Request, res: Response) => {
   pipe(
     req.body.user,
@@ -25,6 +27,12 @@ app.post("/api/users", async (req: Request, res: Response) => {
     TE.mapLeft((error) => res.status(400).json(getError(error.message)))
   )();
 });
+
+// private
+
+// const auth = (req: Request, res: Response, next: NextFunction) => {
+//   res.json("parou");
+// };
 
 app.post("/api/articles", async (req: Request, res: Response) => {
   pipe(

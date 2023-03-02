@@ -7,6 +7,7 @@
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "start": "npm run build && node dist/index.js",
     "dev": "tsx watch src/index.ts",
+    "type:check": "tsc --project tsconfig.json --pretty --noEmit",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest --passWithNoTests"
   },
@@ -27,6 +28,7 @@
     "fp-ts": "^2.13.1",
     "io-ts": "^2.2.20",
     "io-ts-types": "^0.5.19",
+    "jose": "4.13.0",
     "monocle-ts": "^2.3.13",
     "newtype-ts": "^0.3.5",
     "rimraf": "^4.1.2"
