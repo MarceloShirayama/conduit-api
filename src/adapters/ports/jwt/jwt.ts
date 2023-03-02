@@ -1,3 +1,6 @@
 import * as jwt from "./jose";
 
-export const generateToken = (payload: jwt.Payload) => jwt.signJwt(payload);
+type JwtPayload = { [propName: string]: unknown };
+
+export const generateToken = (payload: JwtPayload, expirationTime?: string) =>
+  jwt.signJwt(payload, expirationTime);

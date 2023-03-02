@@ -2,34 +2,31 @@ import * as jose from "jose";
 
 import * as helpers from "./../../../helpers";
 
-export type Payload = { id: number };
+const secretKey = helpers.getEnvironmentVariable("JWT_SECRET");
 
-export async function signJwt(payload: Payload, alg: string = "HS256") {
-  const secretKey = helpers.getEnvironmentVariable("JWT_SECRET");
-  const encodedSecret = new TextEncoder().encode(secretKey);
+if (secretKey.length < 32)
+  throw new Error("JWT_SECRET must be at least 32 chars long.");
 
+const encodedSecret = new TextEncoder().encode(secretKey);
+
+export async function signJwt(
+  payload: jose.JWTPayload,
+  expirationTime: string = "10m"
+) {
+  const alg = "HS256";
   const jwt = await new jose.SignJWT(payload)
     .setProtectedHeader({ alg })
-    .setExpirationTime("10m")
+    .setExpirationTime(expirationTime)
     .sign(encodedSecret);
 
   return jwt;
 }
 
-export async function jwtVerify(jwt: string, secretKey: string) {
-  const encodedSecret = new TextEncoder().encode(secretKey);
-  const { payload, protectedHeader } = await jose.jwtVerify(jwt, encodedSecret);
+export async function jwtVerify(token: string) {
+  const { payload, protectedHeader } = await jose.jwtVerify(
+    token,
+    encodedSecret
+  );
 
   return payload;
 }
-
-// (async () => {
-//   const JWT_SECRET = helpers.getEnvironmentVariable("JWT_SECRET");
-
-//   const jwt = await signJwt(JWT_SECRET, { id: 1, username: "marcelo" });
-//   console.log(jwt);
-
-//   const payload = await jwtVerify(jwt, JWT_SECRET);
-
-//   console.log({ payload });
-// })();
