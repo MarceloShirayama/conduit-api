@@ -22,7 +22,7 @@ app.disable("etag");
 app.post("/api/users", async (req: Request, res: Response) => {
   pipe(
     req.body.user,
-    user.registerUser(db.createUserInDB),
+    user.registerUserAdapter(db.createUser),
     TE.map((result) => res.json(result)),
     TE.mapLeft((error) => res.status(400).json(getError(error.message)))
   )();
@@ -37,7 +37,7 @@ app.post("/api/users", async (req: Request, res: Response) => {
 app.post("/api/articles", async (req: Request, res: Response) => {
   pipe(
     req.body.article,
-    article.registerArticleAdapter(db.createArticleInDB),
+    article.registerArticleAdapter(db.createArticle),
     TE.map((result) => res.json(result)),
     TE.mapLeft((error) => res.status(400).json(getError(error.message)))
   )();
@@ -48,7 +48,7 @@ app.post(
   async (req: Request, res: Response) => {
     pipe(
       req.body.comment,
-      comment.addCommentToAnArticleAdapter(db.addCommentToAnArticleInDB),
+      comment.addCommentToAnArticleAdapter(db.addCommentToAnArticle),
       TE.map((result) => res.json(result)),
       TE.mapLeft((error) => res.status(400).json(getError(error.message)))
     )();

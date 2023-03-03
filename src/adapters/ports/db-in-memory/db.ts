@@ -15,9 +15,7 @@ const db: DB = {
   users: {},
 };
 
-export const outsideRegisterUserInDB: user.OutsideRegisterUserInDB = async (
-  data
-) => {
+export const createUserInDB: user.OutsideRegisterUserInDB = async (data) => {
   const id = uuidV4();
 
   db.users[id] = {
@@ -30,32 +28,33 @@ export const outsideRegisterUserInDB: user.OutsideRegisterUserInDB = async (
   return db.users[id];
 };
 
-export const outsideRegisterArticleInDB: article.OutsideRegisterArticle =
-  async (data) => {
-    const dateNow = new Date().toISOString();
+export const createArticleInDB: article.OutsideRegisterArticle = async (
+  data
+) => {
+  const dateNow = new Date().toISOString();
 
-    return {
-      article: {
-        slug: slugify(data.title, { lower: true }),
-        title: data.title,
-        description: data.description,
-        body: data.body,
-        tagList: data.tagList ?? [],
-        createdAt: dateNow,
-        updatedAt: dateNow,
-        favorited: false,
-        favoritesCount: 0,
-        // author: {
-        //   bio: "",
-        //   following: false,
-        //   image: "",
-        //   username: "",
-        // },
-      },
-    };
+  return {
+    article: {
+      slug: slugify(data.title, { lower: true }),
+      title: data.title,
+      description: data.description,
+      body: data.body,
+      tagList: data.tagList ?? [],
+      createdAt: dateNow,
+      updatedAt: dateNow,
+      favorited: false,
+      favoritesCount: 0,
+      // author: {
+      //   bio: "",
+      //   following: false,
+      //   image: "",
+      //   username: "",
+      // },
+    },
   };
+};
 
-export const outsideAddCommentToAnArticleInDb: comment.OutsideAddCommentToAnArticle =
+export const addCommentToAnArticleInDb: comment.OutsideAddCommentToAnArticle =
   async (data) => {
     const dateNow = new Date();
     const dateString = dateNow.toISOString();

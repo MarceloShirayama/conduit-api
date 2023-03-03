@@ -4,8 +4,8 @@ import * as user from "../../use-cases/user";
 import * as dbInMemory from "../db-in-memory";
 import * as jwt from "./../jwt";
 
-export const createUserInDB: user.OutsideRegisterUser = async (data) => {
-  const registeredUser = await dbInMemory.outsideRegisterUserInDB(data);
+export const createUser: user.OutsideRegisterUser = async (data) => {
+  const registeredUser = await dbInMemory.createUserInDB(data);
 
   if (!registeredUser) throw new Error("Error registering user!");
 
@@ -22,9 +22,9 @@ export const createUserInDB: user.OutsideRegisterUser = async (data) => {
   };
 };
 
-export const createArticleInDB: article.OutsideRegisterArticle = (data) =>
-  dbInMemory.outsideRegisterArticleInDB(data);
+export const createArticle: article.OutsideRegisterArticle = (data) =>
+  dbInMemory.createArticleInDB(data);
 
-export const addCommentToAnArticleInDB: comment.OutsideAddCommentToAnArticle = (
+export const addCommentToAnArticle: comment.OutsideAddCommentToAnArticle = (
   data
-) => dbInMemory.outsideAddCommentToAnArticleInDb(data);
+) => dbInMemory.addCommentToAnArticleInDb(data);

@@ -14,5 +14,6 @@ export type OutsideRegisterUser = ports.OutsideFunction<
   { user: types.UserType }
 >;
 
-export const registerUser: user.RegisterUser = (outsideRegister) => (data) =>
-  user.registerUser(outsideRegister)(data);
+export const registerUserAdapter: user.RegisterUser =
+  (outsideRegister) => (data) =>
+    user.registerUser(outsideRegister)(data);
