@@ -1,48 +1,61 @@
 import slugify from "slugify";
+import { v4 as uuidV4 } from "uuid";
 
 import * as article from "../../use-cases/article";
 import * as comment from "../../use-cases/comment";
 import * as user from "../../use-cases/user";
 
-export const outsideRegisterUser: user.OutsideRegisterUser = async (data) => {
-  return {
-    user: {
-      email: data.email,
-      username: data.username,
-      token: data.token ?? undefined,
-      bio: data.bio ?? undefined,
-      image: data.image ?? undefined,
-    },
+type DB = {
+  users: {
+    [id: string]: user.DBUser;
   };
 };
 
-export const outsideRegisterArticle: article.OutsideRegisterArticle = async (
+const db: DB = {
+  users: {},
+};
+
+export const outsideRegisterUserInDB: user.OutsideRegisterUserInDB = async (
   data
 ) => {
-  const dateNow = new Date().toISOString();
+  const id = uuidV4();
 
-  return {
-    article: {
-      slug: slugify(data.title, { lower: true }),
-      title: data.title,
-      description: data.description,
-      body: data.body,
-      tagList: data.tagList ?? [],
-      createdAt: dateNow,
-      updatedAt: dateNow,
-      favorited: false,
-      favoritesCount: 0,
-      // author: {
-      //   bio: "",
-      //   following: false,
-      //   image: "",
-      //   username: "",
-      // },
-    },
+  db.users[id] = {
+    id,
+    email: data.email,
+    username: data.username,
+    password: data.password,
   };
+
+  return db.users[id];
 };
 
-export const outsideAddCommentToAnArticle: comment.OutsideAddCommentToAnArticle =
+export const outsideRegisterArticleInDB: article.OutsideRegisterArticle =
+  async (data) => {
+    const dateNow = new Date().toISOString();
+
+    return {
+      article: {
+        slug: slugify(data.title, { lower: true }),
+        title: data.title,
+        description: data.description,
+        body: data.body,
+        tagList: data.tagList ?? [],
+        createdAt: dateNow,
+        updatedAt: dateNow,
+        favorited: false,
+        favoritesCount: 0,
+        // author: {
+        //   bio: "",
+        //   following: false,
+        //   image: "",
+        //   username: "",
+        // },
+      },
+    };
+  };
+
+export const outsideAddCommentToAnArticleInDb: comment.OutsideAddCommentToAnArticle =
   async (data) => {
     const dateNow = new Date();
     const dateString = dateNow.toISOString();

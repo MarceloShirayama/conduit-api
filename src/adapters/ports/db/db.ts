@@ -5,14 +5,26 @@ import * as dbInMemory from "../db-in-memory";
 import * as jwt from "./../jwt";
 
 export const createUserInDB: user.OutsideRegisterUser = async (data) => {
-  const token = await jwt.generateToken({ id: 1 });
+  const registeredUser = await dbInMemory.outsideRegisterUserInDB(data);
 
-  return dbInMemory.outsideRegisterUser({ ...data, token });
+  if (!registeredUser) throw new Error("Error registering user!");
+
+  const token = await jwt.generateToken({ id: registeredUser.id });
+
+  return {
+    user: {
+      username: registeredUser.username,
+      email: registeredUser.email,
+      bio: "",
+      image: undefined,
+      token,
+    },
+  };
 };
 
 export const createArticleInDB: article.OutsideRegisterArticle = (data) =>
-  dbInMemory.outsideRegisterArticle(data);
+  dbInMemory.outsideRegisterArticleInDB(data);
 
 export const addCommentToAnArticleInDB: comment.OutsideAddCommentToAnArticle = (
   data
-) => dbInMemory.outsideAddCommentToAnArticle(data);
+) => dbInMemory.outsideAddCommentToAnArticleInDb(data);
