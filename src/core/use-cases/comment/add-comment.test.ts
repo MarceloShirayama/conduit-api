@@ -26,7 +26,7 @@ describe("Add comment use case", () => {
     return `Comment "${data.body}" added successfully.`;
   };
 
-  const addCommentFail: OutsideFunction<unknown, never> = async (data) => {
+  const addCommentFail: OutsideFunction<unknown, never> = async (_data) => {
     throw new Error("External error!");
   };
 
