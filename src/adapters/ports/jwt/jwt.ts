@@ -1,6 +1,6 @@
 import { jwtVerify, signJwt } from "./jose";
 
-type JwtPayload = {
+export type JwtPayload = {
   [propName: string]: unknown;
 };
 

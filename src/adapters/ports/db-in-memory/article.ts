@@ -13,11 +13,17 @@ export const createArticleInDB: OutsideRegisterArticleInDB = async (data) => {
 
   const author = users?.[authorId];
 
-  if (!author) throw new Error("Invalid author id!");
+  if (!author) throw new Error(`Not found author with id: ${authorId}`);
 
-  return {
-    id: uuidV4(),
-    slug: slugify(title, { lower: true }),
+  const articleId = uuidV4();
+
+  const articleSlug = slugify(title, { lower: true });
+
+  db.articlesBySlug[articleSlug] = articleId;
+
+  db.articles[articleId] = {
+    id: articleId,
+    slug: articleSlug,
     title,
     description,
     body,
@@ -33,4 +39,6 @@ export const createArticleInDB: OutsideRegisterArticleInDB = async (data) => {
       following: false,
     },
   };
+
+  return db.articles[articleId];
 };

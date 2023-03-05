@@ -1,9 +1,12 @@
 import * as t from "io-ts";
+import { UUID, withMessage } from "io-ts-types";
 
-import { BodyType } from "./scalar";
+import { BodyType, SlugType } from "./scalar";
 
 export const CreateCommentType = t.strict(
   {
+    authorId: withMessage(UUID, () => "Invalid author id."),
+    articleSlug: SlugType,
     body: BodyType,
   },
   "CreateCommentType"

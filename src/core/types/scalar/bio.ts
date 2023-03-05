@@ -16,3 +16,6 @@ export type BioType = t.TypeOf<typeof BioType>;
 export function validateLengthOfString(value: string) {
   return value.length >= 10 && value.length <= 300;
 }
+
+
+
