@@ -11,12 +11,14 @@ describe("Register article use case", () => {
       title: "any title",
       description: "any description",
       body: "any body",
+      authorId: unsafe("61f84b62-f81f-4f09-8632-ac1f8e6ef93a"),
     },
     {
       title: "any title 2",
       description: "any description 2",
       body: "any body 2",
       tagList: ["any-tag"],
+      authorId: unsafe("61f84b62-f81f-4f09-8632-ac1f8e6ef93a"),
     },
   ];
 
@@ -25,12 +27,14 @@ describe("Register article use case", () => {
     description: "any description",
     body: "any body",
     tagList: ["-invalid-slug"],
+    authorId: unsafe("61f84b62-f81f-4f09-8632-ac1f8e6ef93a"),
   };
 
   const dataWithWrongTitleAndDescription: CreateArticleType = {
     title: "",
     description: "",
     body: "any body",
+    authorId: unsafe("61f84b62-f81f-4f09-8632-ac1f8e6ef93a"),
   };
 
   const dataWithWrongBody: CreateArticleType = {
@@ -38,6 +42,14 @@ describe("Register article use case", () => {
     description: "any description",
     body: unsafe(1),
     tagList: ["any-tag"],
+    authorId: unsafe("61f84b62-f81f-4f09-8632-ac1f8e6ef93a"),
+  };
+
+  const dataWithWrongAuthorId: CreateArticleType = {
+    title: "any title",
+    description: "any description",
+    body: "any body",
+    authorId: unsafe("123"),
   };
 
   const registerOk: OutsideFunction<CreateArticleType, string> = async (
@@ -91,6 +103,14 @@ describe("Register article use case", () => {
       dataWithWrongBody,
       registerArticle(registerOk),
       mapAll((error) => expect(error).toEqual(new Error("Invalid Body.")))
+    )();
+  });
+
+  it("Should not accept a register from an article with invalid author id", () => {
+    pipe(
+      dataWithWrongAuthorId,
+      registerArticle(registerOk),
+      mapAll((error) => expect(error).toEqual(new Error("Invalid author id.")))
     )();
   });
 

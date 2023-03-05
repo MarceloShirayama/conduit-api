@@ -1,0 +1,180 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2023-03-05T00:34:24.747Z",
+  "__export_source": "insomnia.desktop.app:v2022.7.3",
+  "resources": [
+    {
+      "_id": "req_596ceb62b70342c6b4a4873d657671f0",
+      "parentId": "fld_adf16a97b06f42b5a8ab627ac1b330f2",
+      "modified": 1677975928973,
+      "created": 1677457647489,
+      "url": "{{url}}/{{resource}}",
+      "name": "article register",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"article\": {\n    \"title\": \"{% prompt 'title', 'title', 'How to train your dragon', 'title', false, true %}\",\n    \"description\": \"{% prompt 'description', 'description', 'Ever wonder how?', 'description', false, true %}\",\n    \"body\": \"{% prompt 'body', 'body', 'You have to believe', 'body', false, true %}\",\n    \"tagList\": {% prompt 'tagList', 'tagList', '[\"reactjs\", \"angularjs\", \"dragons\"]', 'tagList', false, true %}\n  }\t\n}\n"
+      },
+      "parameters": [],
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "authentication": {
+        "type": "bearer",
+        "token": "{% response 'body', 'req_41f9567372244402b9e2165347346f47', 'b64::JC51c2VyLnRva2Vu::46b', 'no-history', 36000 %}"
+      },
+      "metaSortKey": -1677457647489,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_adf16a97b06f42b5a8ab627ac1b330f2",
+      "parentId": "wrk_9167812f8bd845ddb82d771dd27a5091",
+      "modified": 1677974768866,
+      "created": 1677974732850,
+      "name": "Article",
+      "description": "",
+      "environment": { "resource": "articles" },
+      "environmentPropertyOrder": { "&": ["resource"] },
+      "metaSortKey": -1677974732850,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_9167812f8bd845ddb82d771dd27a5091",
+      "parentId": null,
+      "modified": 1677373976914,
+      "created": 1677373976914,
+      "name": "Conduit API",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_13412f54187b4105bf1f8b74e19c756c",
+      "parentId": "fld_3f8c3e0cddbf4a45b466c626438bca92",
+      "modified": 1677975768645,
+      "created": 1677616499652,
+      "url": "{{url}}/articles/any-slug/{{resource}}",
+      "name": "add comment",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"comment\": {\n\t\t\"body\": \"{% prompt 'body', 'body', 'any comment', 'body', false, true %}\"\n\t}\t\n}\n"
+      },
+      "parameters": [],
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "authentication": {},
+      "metaSortKey": -1677616499652,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_3f8c3e0cddbf4a45b466c626438bca92",
+      "parentId": "wrk_9167812f8bd845ddb82d771dd27a5091",
+      "modified": 1677974703719,
+      "created": 1677974673795,
+      "name": "Comment",
+      "description": "",
+      "environment": { "resource": "comments" },
+      "environmentPropertyOrder": { "&": ["resource"] },
+      "metaSortKey": -1677974673795,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_41f9567372244402b9e2165347346f47",
+      "parentId": "fld_4ba83d7e2f54484cb1d406ca5298ac61",
+      "modified": 1677975715577,
+      "created": 1677373981609,
+      "url": "{{url}}/{{resource}}",
+      "name": "user register",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"user\":{\n    \"username\": \"{% prompt 'username', 'username', 'marcelo', 'username', false, true %}\",\n    \"email\": \"{% prompt 'email', 'email', 'marcelo@mail.com', 'email', false, true %}\",\n    \"password\": \"{% prompt 'password', 'password', '1234_marcelo', 'password', false, true %}\"\n  }\n}"
+      },
+      "parameters": [],
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "authentication": {},
+      "metaSortKey": -1677373981609,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_4ba83d7e2f54484cb1d406ca5298ac61",
+      "parentId": "wrk_9167812f8bd845ddb82d771dd27a5091",
+      "modified": 1677974633310,
+      "created": 1677974566005,
+      "name": "User",
+      "description": "",
+      "environment": { "resource": "users" },
+      "environmentPropertyOrder": { "&": ["resource"] },
+      "metaSortKey": -1677974566005,
+      "_type": "request_group"
+    },
+    {
+      "_id": "env_a5845d23039090aea7c04e9ca2abf998eabe79e9",
+      "parentId": "wrk_9167812f8bd845ddb82d771dd27a5091",
+      "modified": 1677974281855,
+      "created": 1677373976918,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": {},
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1677373976918,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_a5845d23039090aea7c04e9ca2abf998eabe79e9",
+      "parentId": "wrk_9167812f8bd845ddb82d771dd27a5091",
+      "modified": 1677373976919,
+      "created": 1677373976919,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_5f49e7fddf744a7486b780f6265a8601",
+      "parentId": "wrk_9167812f8bd845ddb82d771dd27a5091",
+      "modified": 1677373976915,
+      "created": 1677373976915,
+      "fileName": "Conduit API",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_4efe0ba3874a44a5b7aaf56d2cba2942",
+      "parentId": "env_a5845d23039090aea7c04e9ca2abf998eabe79e9",
+      "modified": 1677974291003,
+      "created": 1677974175035,
+      "name": "Development",
+      "data": { "url": "http://localhost:3333/api" },
+      "dataPropertyOrder": { "&": ["url"] },
+      "color": "#7d69cb",
+      "isPrivate": false,
+      "metaSortKey": 1677974175035,
+      "_type": "environment"
+    }
+  ]
+}

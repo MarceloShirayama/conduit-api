@@ -399,3 +399,36 @@ No additional parameters required
 `GET /api/tags`
 
 No authentication required, returns a [List of Tags](#list-of-tags)
+
+## Tree structure
+
+This project uses Hexagonal Architecture (Ports & Adapters) with Functional Programming.
+
+```bash
+.
+├── src
+│   ├── config
+│   │   ├── tests
+│   │   │   └── fixtures
+│   │   └── module-alias.ts
+│   ├── core
+│   │   ├── [domain entity]
+│   │   │   ├── use-cases
+│   │   │   │   ├── [use-case]-adapter.ts
+│   │   │   │   ├── [use-case].test.ts
+│   │   │   │   ├── [use-case].ts
+│   │   │   └── types.ts
+│   │   └── types
+│   │       ├── <type>.test.ts
+│   │       └── <type>.ts
+│   ├── ports
+│   │   ├── adapters
+│   │   │   └── <port-adapter>
+│   │   └── <port>
+│   ├── app.ts
+│   └── index.ts
+├── .env.example
+├── jest.config.integration.js
+└── jest.config.js
+
+```

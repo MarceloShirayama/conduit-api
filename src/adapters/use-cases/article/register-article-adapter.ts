@@ -1,12 +1,22 @@
-import * as types from "../../../core/types";
-import * as article from "../../../core/use-cases/article";
-import * as ports from "../../../core/use-cases/ports";
+import { ArticleType, CreateArticleType } from "../../../core/types";
+import {
+  registerArticle,
+  RegisterArticle,
+} from "../../../core/use-cases/article";
+import { OutsideFunction } from "../../../core/use-cases/ports";
 
-export type OutsideRegisterArticle = ports.OutsideFunction<
-  types.CreateArticleType,
-  { article: types.ArticleType }
+export type DBArticle = ArticleType & { id: string };
+
+export type OutsideRegisterArticleInDB = OutsideFunction<
+  CreateArticleType,
+  DBArticle
 >;
 
-export const registerArticleAdapter: article.RegisterArticle =
+export type OutsideRegisterArticle = OutsideFunction<
+  CreateArticleType,
+  { article: ArticleType }
+>;
+
+export const registerArticleAdapter: RegisterArticle =
   (outsideRegister) => (data) =>
-    article.registerArticle(outsideRegister)(data);
+    registerArticle(outsideRegister)(data);

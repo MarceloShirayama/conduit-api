@@ -1,8 +1,8 @@
 import * as jose from "jose";
 
-import * as helpers from "./../../../helpers";
+import { getEnvironmentVariable } from "./../../../helpers";
 
-const secretKey = helpers.getEnvironmentVariable("JWT_SECRET");
+const secretKey = getEnvironmentVariable("JWT_SECRET");
 
 if (secretKey.length < 32)
   throw new Error("JWT_SECRET must be at least 32 chars long.");
@@ -23,10 +23,7 @@ export async function signJwt(
 }
 
 export async function jwtVerify(token: string) {
-  const { payload, protectedHeader } = await jose.jwtVerify(
-    token,
-    encodedSecret
-  );
+  const jwtVerifyResult = await jose.jwtVerify(token, encodedSecret);
 
-  return payload;
+  return jwtVerifyResult;
 }

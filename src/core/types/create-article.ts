@@ -1,4 +1,5 @@
 import * as t from "io-ts";
+import { UUID, withMessage } from "io-ts-types";
 
 import { BodyType, DescriptionType, TagType, TitleType } from "./scalar";
 
@@ -6,6 +7,7 @@ export const CreateArticleRequiredType = t.strict({
   title: TitleType,
   description: DescriptionType,
   body: BodyType,
+  authorId: withMessage(UUID, () => "Invalid author id."),
 });
 
 export const CreateArticleOptionalType = t.partial({

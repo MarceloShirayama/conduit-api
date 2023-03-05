@@ -1,12 +1,15 @@
-import * as types from "../../../core/types";
-import * as comment from "../../../core/use-cases/comment";
-import * as ports from "../../../core/use-cases/ports";
+import { CommentType, CreateCommentType } from "../../../core/types";
+import {
+  addCommentToAnArticle,
+  AddCommentToAnArticle,
+} from "../../../core/use-cases/comment";
+import { OutsideFunction } from "../../../core/use-cases/ports";
 
-export type OutsideAddCommentToAnArticle = ports.OutsideFunction<
-  types.CreateCommentType,
-  { comment: types.CommentType }
+export type OutsideAddCommentToAnArticle = OutsideFunction<
+  CreateCommentType,
+  { comment: CommentType }
 >;
 
-export const addCommentToAnArticleAdapter: comment.AddCommentToAnArticle =
+export const addCommentToAnArticleAdapter: AddCommentToAnArticle =
   (outsideAddComment) => (data) =>
-    comment.addCommentToAnArticle(outsideAddComment)(data);
+    addCommentToAnArticle(outsideAddComment)(data);
