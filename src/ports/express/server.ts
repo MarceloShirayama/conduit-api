@@ -1,15 +1,19 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 
-import * as db from "../../adapters/ports/db";
-import * as article from "../../adapters/use-cases/article";
-import * as comment from "../../adapters/use-cases/comment";
-import * as user from "../../adapters/use-cases/user";
-import * as helpers from "./../../helpers";
-import * as jwt from "../../adapters/ports/jwt";
+import {
+  addCommentToAnArticle,
+  createArticle,
+  createUser,
+} from "../../adapters/ports/db";
+import { verifyToken } from "../../adapters/ports/jwt";
+import { registerArticleAdapter } from "../../adapters/use-cases/article";
+import { addCommentToAnArticleAdapter } from "../../adapters/use-cases/comment";
+import { registerUserAdapter } from "../../adapters/use-cases/user";
+import { getEnvironmentVariable } from "../../helpers";
 
-const PORT = helpers.getEnvironmentVariable("PORT");
+const PORT = getEnvironmentVariable("PORT");
 
 const app = express();
 
@@ -23,7 +27,7 @@ app.disable("etag");
 app.post("/api/users", async (req: Request, res: Response) => {
   pipe(
     req.body.user,
-    user.registerUserAdapter(db.createUser),
+    registerUserAdapter(createUser),
     TE.map((result) => res.status(201).json(result)),
     TE.mapLeft((error) => res.status(400).json(getError(error.message)))
   )();
@@ -38,13 +42,13 @@ app.post("/api/users", async (req: Request, res: Response) => {
 app.post("/api/articles", async (req: Request, res: Response) => {
   try {
     const token = req.header("authorization")?.split("Bearer ")[1] ?? "";
-    const payload = await jwt.verifyToken(token);
+    const payload = await verifyToken(token);
 
     const data = { ...req.body.article, authorId: payload.id };
 
     pipe(
       data,
-      article.registerArticleAdapter(db.createArticle),
+      registerArticleAdapter(createArticle),
       TE.map((result) => res.status(201).json(result)),
       TE.mapLeft((error) => res.status(400).json(getError(error.message)))
     )();
@@ -58,7 +62,7 @@ app.post(
   async (req: Request, res: Response) => {
     pipe(
       req.body.comment,
-      comment.addCommentToAnArticleAdapter(db.addCommentToAnArticle),
+      addCommentToAnArticleAdapter(addCommentToAnArticle),
       TE.map((result) => res.status(201).json(result)),
       TE.mapLeft((error) => res.status(400).json(getError(error.message)))
     )();
