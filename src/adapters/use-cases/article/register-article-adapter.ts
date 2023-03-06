@@ -2,7 +2,7 @@ import { ArticleType, CreateArticleType } from "../../../core/types";
 import {
   registerArticle,
   RegisterArticle,
-} from "../../../core/use-cases/article";
+} from "../../../core/article/use-cases";
 import { OutsideFunction } from "../../../core/ports";
 
 export type DBArticle = ArticleType & { id: string };

@@ -2,7 +2,7 @@ import { CommentType, CreateCommentType } from "../../../core/types";
 import {
   addCommentToAnArticle,
   AddCommentToAnArticle,
-} from "../../../core/use-cases/comment";
+} from "../../../core/comment/use-cases";
 import { OutsideFunction } from "../../../core/ports";
 
 export type DBComment = CommentType & {
