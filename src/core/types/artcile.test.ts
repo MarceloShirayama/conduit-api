@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 
-import { mapAll } from "../../test/config/fixtures";
+import { mapAll } from "../../config/test/fixtures";
 import { ArticleType } from "./article";
 
 describe("Article type", () => {

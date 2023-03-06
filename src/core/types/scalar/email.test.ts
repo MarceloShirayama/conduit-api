@@ -2,7 +2,7 @@ import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 import { PathReporter } from "io-ts/PathReporter";
 
-import { mapAll } from "../../../test/config/fixtures";
+import { mapAll } from "../../../config/test/fixtures";
 import { EmailType } from "./";
 
 describe("Email scalar", () => {

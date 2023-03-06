@@ -1,6 +1,6 @@
 import { pipe } from "fp-ts/lib/function";
 
-import { mapAll, unsafe } from "../../../test/config/fixtures";
+import { mapAll, unsafe } from "../../../config/test/fixtures";
 import { OutsideFunction } from "../ports";
 import { CreateCommentType } from "../../types";
 import { addCommentToAnArticle } from "./";
