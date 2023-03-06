@@ -3,7 +3,7 @@ import { pipe } from "fp-ts/function";
 import { mapAll } from "../../../config/test/fixtures";
 import { CreateUserType } from "../../types";
 import { registerUser } from ".";
-import { OutsideFunction } from "../ports";
+import { OutsideFunction } from "../../ports";
 
 describe("Register user use case", () => {
   const registerOk: OutsideFunction<CreateUserType, string> = async (data) => {

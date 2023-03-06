@@ -2,7 +2,7 @@ import { pipe } from "fp-ts/lib/function";
 
 import { mapAll, unsafe } from "../../../config/test/fixtures";
 import { CreateArticleType } from "../../types";
-import { OutsideFunction } from "../ports";
+import { OutsideFunction } from "../../ports";
 import { registerArticle } from "./register-article";
 
 describe("Register article use case", () => {

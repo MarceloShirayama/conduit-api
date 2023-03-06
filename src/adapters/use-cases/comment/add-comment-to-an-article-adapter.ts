@@ -3,7 +3,7 @@ import {
   addCommentToAnArticle,
   AddCommentToAnArticle,
 } from "../../../core/use-cases/comment";
-import { OutsideFunction } from "../../../core/use-cases/ports";
+import { OutsideFunction } from "../../../core/ports";
 
 export type DBComment = CommentType & {
   articleId: string;

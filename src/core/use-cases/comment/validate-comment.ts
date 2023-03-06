@@ -3,7 +3,7 @@ import { pipe } from "fp-ts/lib/function";
 import { failure } from "io-ts/lib/PathReporter";
 
 import { CreateCommentType } from "../../types";
-import { ValidateType } from "../ports";
+import { ValidateType } from "../../ports";
 
 export const validateComment: ValidateType<CreateCommentType> = (data) => {
   return pipe(

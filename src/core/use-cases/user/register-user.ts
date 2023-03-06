@@ -4,7 +4,7 @@ import * as TE from "fp-ts/TaskEither";
 
 import { CreateUserType } from "core/types";
 import { validateUser } from ".";
-import { OutsideFunction } from "../ports";
+import { OutsideFunction } from "../../ports";
 
 export type RegisterUser = <A>(
   outsideRegister: OutsideFunction<CreateUserType, A>

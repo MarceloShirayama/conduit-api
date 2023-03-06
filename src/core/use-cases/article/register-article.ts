@@ -3,7 +3,7 @@ import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 
 import { CreateArticleType } from "../../types";
-import { OutsideFunction } from "../ports";
+import { OutsideFunction } from "../../ports";
 import { validateArticle } from "./validate-article";
 
 export type RegisterArticle = <A>(

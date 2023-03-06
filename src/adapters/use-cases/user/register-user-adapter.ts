@@ -1,5 +1,5 @@
 import { CreateUserType, UserType } from "../../../core/types";
-import { OutsideFunction } from "../../../core/use-cases/ports";
+import { OutsideFunction } from "../../../core/ports";
 import { registerUser, RegisterUser } from "../../../core/use-cases/user";
 
 export type DBUser = UserType & { id: string; password: string };

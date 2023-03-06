@@ -3,7 +3,7 @@ import {
   registerArticle,
   RegisterArticle,
 } from "../../../core/use-cases/article";
-import { OutsideFunction } from "../../../core/use-cases/ports";
+import { OutsideFunction } from "../../../core/ports";
 
 export type DBArticle = ArticleType & { id: string };
 
