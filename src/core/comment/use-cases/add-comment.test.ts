@@ -2,7 +2,7 @@ import { pipe } from "fp-ts/lib/function";
 
 import { mapAll, unsafe } from "../../../config/test/fixtures";
 import { OutsideFunction } from "../../ports";
-import { CreateCommentType } from "../../types";
+import { CreateCommentType } from "../types";
 import { addCommentToAnArticle } from "./";
 
 describe("Add comment use case", () => {

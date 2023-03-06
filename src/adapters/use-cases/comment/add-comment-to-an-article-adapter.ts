@@ -1,4 +1,4 @@
-import { CommentType, CreateCommentType } from "../../../core/types";
+import { CommentType, CreateCommentType } from "../../../core/comment/types";
 import {
   addCommentToAnArticle,
   AddCommentToAnArticle,

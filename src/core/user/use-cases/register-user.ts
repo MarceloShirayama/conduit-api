@@ -2,7 +2,7 @@ import * as E from "fp-ts/Either";
 import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 
-import { CreateUserType } from "core/types";
+import { CreateUserType } from "../types";
 import { validateUser } from ".";
 import { OutsideFunction } from "../../ports";
 

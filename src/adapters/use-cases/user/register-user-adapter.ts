@@ -1,4 +1,4 @@
-import { CreateUserType, UserType } from "../../../core/types";
+import { CreateUserType, UserType } from "../../../core/user/types";
 import { OutsideFunction } from "../../../core/ports";
 import { registerUser, RegisterUser } from "../../../core/user/use-cases";
 

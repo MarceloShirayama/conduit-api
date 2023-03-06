@@ -1,7 +1,7 @@
 import * as t from "io-ts";
-import { AuthorType } from "./author";
+import { AuthorType } from "../../author/types";
 
-import { BodyType, DateType, IdType } from "./scalar";
+import { BodyType, DateType, IdType } from "../../types";
 
 const ParcialCommentType = t.strict({
   id: IdType,

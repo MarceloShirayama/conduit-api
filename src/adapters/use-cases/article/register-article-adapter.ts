@@ -1,4 +1,4 @@
-import { ArticleType, CreateArticleType } from "../../../core/types";
+import { ArticleType, CreateArticleType } from "../../../core/article/types";
 import {
   registerArticle,
   RegisterArticle,

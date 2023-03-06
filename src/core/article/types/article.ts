@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { AuthorType, ProfileType } from "./";
+import { AuthorType } from "../../author/types";
 import {
   BodyType,
   BooleanType,
@@ -10,7 +10,7 @@ import {
   SlugType,
   TagType,
   TitleType,
-} from "./scalar";
+} from "../../types";
 
 const ParcialArticle = t.type({
   slug: SlugType,

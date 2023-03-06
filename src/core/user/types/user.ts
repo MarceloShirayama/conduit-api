@@ -1,13 +1,12 @@
 import * as t from "io-ts";
 
 import {
-  EmailType,
-  PasswordType,
   BioType,
-  TokenType,
+  EmailType,
   ImageUrlType,
   SlugType,
-} from "./scalar";
+  TokenType,
+} from "../../types";
 
 const UserRequiredType = t.strict({
   email: EmailType,

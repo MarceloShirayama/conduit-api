@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/function";
 
 import { mapAll } from "../../../config/test/fixtures";
-import { CreateUserType } from "../../types";
+import { CreateUserType } from "../types";
 import { registerUser } from ".";
 import { OutsideFunction } from "../../ports";
 

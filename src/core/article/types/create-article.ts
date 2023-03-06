@@ -1,7 +1,7 @@
 import * as t from "io-ts";
 import { UUID, withMessage } from "io-ts-types";
 
-import { BodyType, DescriptionType, TagType, TitleType } from "./scalar";
+import { BodyType, DescriptionType, TagType, TitleType } from "../../types";
 
 export const CreateArticleRequiredType = t.strict({
   title: TitleType,

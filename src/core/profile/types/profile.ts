@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { BioType, BooleanType, ImageUrlType, SlugType } from "./scalar";
+import { BioType, BooleanType, ImageUrlType, SlugType } from "../../types";
 
 export const ProfileType = t.strict(
   {

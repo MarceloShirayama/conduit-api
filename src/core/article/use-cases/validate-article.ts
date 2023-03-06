@@ -2,8 +2,8 @@ import * as E from "fp-ts/Either";
 import { pipe } from "fp-ts/function";
 import { failure } from "io-ts/PathReporter";
 
-import { CreateArticleType } from "../../types";
 import { ValidateType } from "../../ports";
+import { CreateArticleType } from "../types";
 
 export const validateArticle: ValidateType<CreateArticleType> = (data) => {
   return pipe(

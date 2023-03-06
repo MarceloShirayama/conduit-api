@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { SlugType, PasswordType, EmailType } from "./scalar";
+import { SlugType, PasswordType, EmailType } from "../../types";
 
 export const CreateUserType = t.strict(
   {
