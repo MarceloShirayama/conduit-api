@@ -1,4 +1,8 @@
-import { OutsideRegisterUser } from "../../../core/user/use-cases";
+import { loginUserInDB } from "../../db-in-memory";
+import {
+  OutsideLoginUser,
+  OutsideRegisterUser,
+} from "../../../core/user/use-cases";
 import { generateToken } from "../jwt";
 import { createUserInDB } from "./db";
 
@@ -7,11 +11,17 @@ export const createUser = <OutsideRegisterUser>(async (data) => {
 
   const token = await generateToken({ id: registeredUser.id });
 
-  return {
-    user: {
-      username: registeredUser.username,
-      email: registeredUser.email,
-      token,
-    },
-  };
+  const { id, password, ...user } = { ...registeredUser, token };
+
+  return { user };
+});
+
+export const loginUser = <OutsideLoginUser>(async (data: any) => {
+  const userData = await loginUserInDB(data);
+
+  const token = await generateToken({ id: userData.id });
+
+  const { id, ...user } = { ...userData, token };
+
+  return { user };
 });

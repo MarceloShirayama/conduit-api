@@ -10,8 +10,6 @@ export type DBComment = CommentType & {
   authorId: string;
 };
 
-export type ArticleID = string;
-
 export type OutsideAddCommentToAnArticleInDB = OutsideFunction<
   CreateCommentType,
   DBComment

@@ -10,11 +10,15 @@ import {
   addCommentToAnArticle,
   createArticle,
   createUser,
+  loginUser,
 } from "../adapters/db";
 import { JwtPayload, verifyToken } from "../adapters/jwt";
 import { registerArticleAdapter } from "../../core/article/use-cases";
 import { addCommentToAnArticleAdapter } from "../../core/comment/use-cases";
-import { registerUserAdapter } from "../../core/user/use-cases";
+import {
+  loginUserAdapter,
+  registerUserAdapter,
+} from "../../core/user/use-cases";
 import { getEnvironmentVariable } from "../../helpers";
 
 type Request = { auth?: JwtPayload } & ExpressRequest;
@@ -34,6 +38,16 @@ app.post("/api/users", async (req: Request, res: Response) => {
     registerUserAdapter(createUser),
     TE.map((result) => res.status(201).json(result)),
     TE.mapLeft((error) => res.status(400).json(getError(error.message)))
+  )();
+});
+
+app.post("/api/users/login", async (req: Request, res: Response) => {
+  const data = req.body.user;
+  pipe(
+    data,
+    loginUserAdapter(loginUser),
+    TE.map((result) => res.json(result)),
+    TE.mapLeft((error) => res.status(422).json(getError(error.message)))
   )();
 });
 
