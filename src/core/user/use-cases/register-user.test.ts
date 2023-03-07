@@ -2,7 +2,7 @@ import { pipe } from "fp-ts/function";
 
 import { mapAll } from "../../../config/test/fixtures";
 import { CreateUserType } from "../types";
-import { registerUser } from ".";
+import { registerUser } from "./register-user";
 import { OutsideFunction } from "../../ports";
 
 describe("Register user use case", () => {

@@ -1,2 +1,1 @@
-export * from "./add-comment-to-an-article";
-export * from "./validate-comment";
+export * from "./add-comment-to-an-article-adapter";

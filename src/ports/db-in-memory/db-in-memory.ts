@@ -1,6 +1,6 @@
-import { DBArticle } from "../../use-cases/article";
-import { ArticleID, DBComment } from "../../use-cases/comment";
-import { DBUser } from "../../use-cases/user";
+import { DBArticle } from "../../core/article/use-cases";
+import { ArticleID, DBComment } from "../../core/comment/use-cases";
+import { DBUser } from "../../core/user/use-cases";
 
 export type DB = {
   users: { [id: string]: Omit<DBUser, "token"> };

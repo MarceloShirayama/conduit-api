@@ -1,9 +1,9 @@
+import { OutsideRegisterUserInDB } from "../../core/user/use-cases";
 import { v4 as uuidV4 } from "uuid";
 
-import { OutsideRegisterUserInDB } from "../../../adapters/use-cases/user";
-import { db } from "./";
+import { db } from ".";
 
-export const createUserInDB: OutsideRegisterUserInDB = async (data) => {
+export const createUserInDB = <OutsideRegisterUserInDB>(async (data) => {
   const id = uuidV4();
 
   db.users[id] = {
@@ -14,4 +14,4 @@ export const createUserInDB: OutsideRegisterUserInDB = async (data) => {
   };
 
   return db.users[id];
-};
+});

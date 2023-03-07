@@ -10,11 +10,11 @@ import {
   addCommentToAnArticle,
   createArticle,
   createUser,
-} from "../../adapters/ports/db";
-import { JwtPayload, verifyToken } from "../../adapters/ports/jwt";
-import { registerArticleAdapter } from "../../adapters/use-cases/article";
-import { addCommentToAnArticleAdapter } from "../../adapters/use-cases/comment";
-import { registerUserAdapter } from "../../adapters/use-cases/user";
+} from "../adapters/db";
+import { JwtPayload, verifyToken } from "../adapters/jwt";
+import { registerArticleAdapter } from "../../core/article/use-cases";
+import { addCommentToAnArticleAdapter } from "../../core/comment/use-cases";
+import { registerUserAdapter } from "../../core/user/use-cases";
 import { getEnvironmentVariable } from "../../helpers";
 
 type Request = { auth?: JwtPayload } & ExpressRequest;
@@ -66,6 +66,7 @@ app.post(
   auth,
   async (req: Request, res: Response) => {
     const payload = req.auth ?? {};
+
     const { slug } = req.params;
     const { comment } = req.body;
     const data = {

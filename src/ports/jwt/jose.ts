@@ -1,6 +1,6 @@
 import * as jose from "jose";
 
-import { getEnvironmentVariable } from "./../../../helpers";
+import { getEnvironmentVariable } from "../../helpers";
 
 const secretKey = getEnvironmentVariable("JWT_SECRET");
 

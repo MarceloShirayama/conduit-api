@@ -1,9 +1,9 @@
-import { CommentType, CreateCommentType } from "../../../core/comment/types";
+import { CommentType, CreateCommentType } from "../types";
 import {
   addCommentToAnArticle,
   AddCommentToAnArticle,
-} from "../../../core/comment/use-cases";
-import { OutsideFunction } from "../../../core/ports";
+} from "./add-comment-to-an-article";
+import { OutsideFunction } from "../../ports";
 
 export type DBComment = CommentType & {
   articleId: string;
@@ -22,6 +22,7 @@ export type OutsideAddCommentToAnArticle = OutsideFunction<
   { comment: CommentType }
 >;
 
-export const addCommentToAnArticleAdapter: AddCommentToAnArticle =
-  (outsideAddComment) => (data) =>
-    addCommentToAnArticle(outsideAddComment)(data);
+export const addCommentToAnArticleAdapter = <AddCommentToAnArticle>(
+  ((outsideAddComment) => (data) =>
+    addCommentToAnArticle(outsideAddComment)(data))
+);

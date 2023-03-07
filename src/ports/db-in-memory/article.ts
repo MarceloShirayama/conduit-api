@@ -1,10 +1,10 @@
 import slugify from "slugify";
 import { v4 as uuidV4 } from "uuid";
 
-import { OutsideRegisterArticleInDB } from "../../use-cases/article";
-import { db } from "./";
+import { OutsideRegisterArticleInDB } from "../../core/article/use-cases";
+import { db } from ".";
 
-export const createArticleInDB: OutsideRegisterArticleInDB = async (data) => {
+export const createArticleInDB = <OutsideRegisterArticleInDB>(async (data) => {
   const dateNow = new Date().toISOString();
 
   const { title, description, body, authorId, tagList } = data;
@@ -41,4 +41,4 @@ export const createArticleInDB: OutsideRegisterArticleInDB = async (data) => {
   };
 
   return db.articles[articleId];
-};
+});

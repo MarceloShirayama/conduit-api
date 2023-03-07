@@ -1,8 +1,8 @@
-import { OutsideAddCommentToAnArticleInDB } from "../../use-cases/comment";
+import { OutsideAddCommentToAnArticleInDB } from "../../core/comment/use-cases";
 import { db } from "./db-in-memory";
 
-export const addCommentToAnArticleInDb: OutsideAddCommentToAnArticleInDB =
-  async (data) => {
+export const addCommentToAnArticleInDb = <OutsideAddCommentToAnArticleInDB>(
+  (async (data) => {
     const dateNow = new Date();
     const dateString = dateNow.toISOString();
     const dateNumber = dateNow.getTime();
@@ -42,4 +42,5 @@ export const addCommentToAnArticleInDb: OutsideAddCommentToAnArticleInDB =
         following: false,
       },
     };
-  };
+  })
+);

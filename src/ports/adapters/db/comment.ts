@@ -1,7 +1,7 @@
-import { OutsideAddCommentToAnArticle } from "../../use-cases/comment";
+import { OutsideAddCommentToAnArticle } from "../../../core/comment/use-cases";
 import { addCommentToAnArticleInDb } from "./db";
 
-export const addCommentToAnArticle: OutsideAddCommentToAnArticle = async (
+export const addCommentToAnArticle = <OutsideAddCommentToAnArticle>(async (
   data
 ) => {
   const registeredComment = await addCommentToAnArticleInDb(data);
@@ -11,4 +11,4 @@ export const addCommentToAnArticle: OutsideAddCommentToAnArticle = async (
   return {
     comment,
   };
-};
+});

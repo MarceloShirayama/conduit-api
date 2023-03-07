@@ -10,12 +10,14 @@ export type AddCommentToAnArticle = <A>(
   outsideCreateComment: OutsideFunction<CreateCommentType, A>
 ) => (data: CreateCommentType) => TE.TaskEither<Error, A>;
 
-export const addCommentToAnArticle: AddCommentToAnArticle =
-  (outsideAddComment) => (data) => {
+export const addCommentToAnArticle = <AddCommentToAnArticle>((
+    outsideAddComment
+  ) =>
+  (data) => {
     return pipe(
       data,
       validateComment,
       TE.fromEither,
       TE.chain(() => TE.tryCatch(() => outsideAddComment(data), E.toError))
     );
-  };
+  });

@@ -419,12 +419,12 @@ This project uses Hexagonal Architecture (Ports & Adapters) with Functional Prog
 │   │   │   │   ├── [use-case].ts
 │   │   │   └── types.ts
 │   │   └── types
-│   │       ├── <type>.test.ts
-│   │       └── <type>.ts
+│   │       ├── [type].test.ts
+│   │       └── [type].ts
 │   ├── ports
 │   │   ├── adapters
-│   │   │   └── <port-adapter>
-│   │   └── <port>
+│   │   │   └── [port-adapter]
+│   │   └── [port]
 │   ├── app.ts
 │   └── index.ts
 ├── .env.example
