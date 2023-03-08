@@ -5,18 +5,20 @@ import {
 import { v4 as uuidV4 } from "uuid";
 
 import { db } from ".";
+import { checkPassword, hashPassword } from "../adapters/hash";
 
 export const createUserInDB = <OutsideRegisterUserInDB>(async (data) => {
   if (db.userByEmail[data.email])
     throw new Error("Already exists user registered with this email!");
 
   const id = uuidV4();
+  const password = await hashPassword(data.password);
 
   db.users[id] = {
     id,
     email: data.email,
     username: data.username,
-    password: data.password,
+    password,
   };
 
   db.userByEmail[data.email] = id;
@@ -29,7 +31,9 @@ export const loginUserInDB = <OutsideLoginUserInDB>(async (data) => {
 
   const userFound = db.users[userId];
 
-  if (!userFound || userFound.password !== data.password)
+  const matchPassword = await checkPassword(userFound.password, data.password);
+
+  if (!userFound || !matchPassword)
     throw new Error("Invalid email or password!");
 
   const { password, ...user } = userFound;
