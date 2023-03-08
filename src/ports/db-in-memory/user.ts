@@ -7,6 +7,9 @@ import { v4 as uuidV4 } from "uuid";
 import { db } from ".";
 
 export const createUserInDB = <OutsideRegisterUserInDB>(async (data) => {
+  if (db.userByEmail[data.email])
+    throw new Error("Already exists user registered with this email!");
+
   const id = uuidV4();
 
   db.users[id] = {
