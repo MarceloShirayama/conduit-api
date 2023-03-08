@@ -5,6 +5,7 @@ import express, {
 } from "express";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
+import cors from "cors";
 
 import {
   addCommentToAnArticle,
@@ -27,6 +28,7 @@ const PORT = getEnvironmentVariable("PORT");
 
 const app = express();
 
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.disable("x-powered-by");
