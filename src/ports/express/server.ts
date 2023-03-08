@@ -39,7 +39,7 @@ app.post("/api/users", async (req: Request, res: Response) => {
     req.body.user,
     registerUserAdapter(createUser),
     TE.map((result) => res.status(201).json(result)),
-    TE.mapLeft((error) => res.status(400).json(getError(error.message)))
+    TE.mapLeft((error) => res.status(422).json(getError(error.message)))
   )();
 });
 
@@ -100,7 +100,9 @@ app.post(
   }
 );
 
-app.listen(PORT, () => console.info(`Server listening on port: ${PORT}`));
+export const startServer = () => {
+  app.listen(PORT, () => console.info(`Server listening on port: ${PORT}`));
+};
 
 function getError(errors: string) {
   return {
