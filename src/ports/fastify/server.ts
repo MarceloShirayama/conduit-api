@@ -3,8 +3,11 @@ import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 import { getEnvironmentVariable } from "../../helpers";
 
-import { CreateUserType } from "../../core/user/types";
-import { registerUserHttpAdapter } from "../adapters/http/modules";
+import { CreateUserType, LoginUserType } from "../../core/user/types";
+import {
+  loginUserHttpAdapter,
+  registerUserHttpAdapter,
+} from "../adapters/http/modules";
 
 const app = fastify({ logger: true });
 
@@ -24,6 +27,21 @@ app.post<CreateUserApi>("/api/users", (req, reply) => {
     TE.mapLeft((result) => {
       reply.code(422).send(result);
     })
+  )();
+});
+
+type LoginUserApi = {
+  Body: {
+    user: LoginUserType;
+  };
+};
+
+app.post<LoginUserApi>("/api/users/login", (req, reply) => {
+  pipe(
+    req.body.user,
+    loginUserHttpAdapter,
+    TE.map((result) => reply.send(result)),
+    TE.mapLeft((error) => reply.code(422).send(error))
   )();
 });
 

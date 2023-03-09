@@ -9,15 +9,13 @@ import * as TE from "fp-ts/TaskEither";
 
 import { registerArticleAdapter } from "../../core/article/use-cases";
 import { addCommentToAnArticleAdapter } from "../../core/comment/use-cases";
-import { loginUserAdapter } from "../../core/user/use-cases";
 import { getEnvironmentVariable } from "../../helpers";
-import {
-  addCommentToAnArticle,
-  createArticle,
-  loginUser,
-} from "../adapters/db";
+import { addCommentToAnArticle, createArticle } from "../adapters/db";
 import { getError } from "../adapters/http";
-import { registerUserHttpAdapter } from "../adapters/http/modules";
+import {
+  loginUserHttpAdapter,
+  registerUserHttpAdapter,
+} from "../adapters/http/modules";
 import { JwtPayload, verifyToken } from "../adapters/jwt";
 
 type Request = { auth?: JwtPayload } & ExpressRequest;
@@ -37,7 +35,7 @@ app.post("/api/users", async (req: Request, res: Response) => {
     req.body.user,
     registerUserHttpAdapter,
     TE.map((result) => res.status(201).json(result)),
-    TE.mapLeft((result) => res.status(422).json(result))
+    TE.mapLeft((error) => res.status(422).json(error))
   )();
 });
 
@@ -45,9 +43,9 @@ app.post("/api/users/login", async (req: Request, res: Response) => {
   const data = req.body.user;
   pipe(
     data,
-    loginUserAdapter(loginUser),
+    loginUserHttpAdapter,
     TE.map((result) => res.json(result)),
-    TE.mapLeft((error) => res.status(422).json(getError(error.message)))
+    TE.mapLeft((error) => res.status(422).json(error))
   )();
 });
 
