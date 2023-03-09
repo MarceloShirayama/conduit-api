@@ -6,13 +6,12 @@ import express, {
 } from "express";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
+import { createArticleHttpAdapter } from "../adapters/http/modules";
 
-import { registerArticleAdapter } from "../../core/article/use-cases";
-import { addCommentToAnArticleAdapter } from "../../core/comment/use-cases";
 import { getEnvironmentVariable } from "../../helpers";
-import { addCommentToAnArticle, createArticle } from "../adapters/db";
 import { getError } from "../adapters/http";
 import {
+  addCommentToAnArticleHttpAdapter,
   loginUserHttpAdapter,
   registerUserHttpAdapter,
 } from "../adapters/http/modules";
@@ -67,9 +66,9 @@ app.post("/api/articles", auth, async (req: Request, res: Response) => {
 
   pipe(
     data,
-    registerArticleAdapter(createArticle),
+    createArticleHttpAdapter,
     TE.map((result) => res.status(201).json(result)),
-    TE.mapLeft((error) => res.status(400).json(getError(error.message)))
+    TE.mapLeft((error) => res.status(400).json(error))
   )();
 });
 
@@ -89,9 +88,9 @@ app.post(
 
     pipe(
       data,
-      addCommentToAnArticleAdapter(addCommentToAnArticle),
+      addCommentToAnArticleHttpAdapter,
       TE.map((result) => res.status(201).json(result)),
-      TE.mapLeft((error) => res.status(400).json(getError(error.message)))
+      TE.mapLeft((error) => res.status(400).json(error))
     )();
   }
 );

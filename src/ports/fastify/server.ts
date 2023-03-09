@@ -1,9 +1,9 @@
 import fastify from "fastify";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
-import { getEnvironmentVariable } from "../../helpers";
 
 import { CreateUserType, LoginUserType } from "../../core/user/types";
+import { getEnvironmentVariable } from "../../helpers";
 import {
   loginUserHttpAdapter,
   registerUserHttpAdapter,
