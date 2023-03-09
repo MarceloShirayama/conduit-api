@@ -3,9 +3,8 @@ import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 import { getEnvironmentVariable } from "../../helpers";
 
-import { registerUserAdapter } from "../../core/user/use-cases";
-import { createUser } from "../adapters/db";
-import { CreateUserType, UserType } from "../../core/user/types";
+import { CreateUserType } from "../../core/user/types";
+import { registerUserHttpAdapter } from "../adapters/http/modules";
 
 const app = fastify({ logger: true });
 
@@ -20,10 +19,10 @@ type CreateUserApi = {
 app.post<CreateUserApi>("/api/users", (req, reply) => {
   pipe(
     req.body.user,
-    registerUserAdapter(createUser),
+    registerUserHttpAdapter,
     TE.map((result) => reply.code(201).send(result)),
-    TE.mapLeft((error) => {
-      reply.code(422).send(getError(error.message));
+    TE.mapLeft((result) => {
+      reply.code(422).send(result);
     })
   )();
 });
@@ -36,11 +35,3 @@ export const startServer = () => {
     process.exit(1);
   }
 };
-
-function getError(errors: string) {
-  return {
-    errors: {
-      body: errors.split(":::"),
-    },
-  };
-}

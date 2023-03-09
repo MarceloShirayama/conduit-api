@@ -1,3 +1,4 @@
+import cors from "cors";
 import express, {
   NextFunction,
   Request as ExpressRequest,
@@ -5,22 +6,19 @@ import express, {
 } from "express";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
-import cors from "cors";
 
+import { registerArticleAdapter } from "../../core/article/use-cases";
+import { addCommentToAnArticleAdapter } from "../../core/comment/use-cases";
+import { loginUserAdapter } from "../../core/user/use-cases";
+import { getEnvironmentVariable } from "../../helpers";
 import {
   addCommentToAnArticle,
   createArticle,
-  createUser,
   loginUser,
 } from "../adapters/db";
+import { getError } from "../adapters/http";
+import { registerUserHttpAdapter } from "../adapters/http/modules";
 import { JwtPayload, verifyToken } from "../adapters/jwt";
-import { registerArticleAdapter } from "../../core/article/use-cases";
-import { addCommentToAnArticleAdapter } from "../../core/comment/use-cases";
-import {
-  loginUserAdapter,
-  registerUserAdapter,
-} from "../../core/user/use-cases";
-import { getEnvironmentVariable } from "../../helpers";
 
 type Request = { auth?: JwtPayload } & ExpressRequest;
 
@@ -37,9 +35,9 @@ app.disable("etag");
 app.post("/api/users", async (req: Request, res: Response) => {
   pipe(
     req.body.user,
-    registerUserAdapter(createUser),
+    registerUserHttpAdapter,
     TE.map((result) => res.status(201).json(result)),
-    TE.mapLeft((error) => res.status(422).json(getError(error.message)))
+    TE.mapLeft((result) => res.status(422).json(result))
   )();
 });
 
@@ -103,11 +101,3 @@ app.post(
 export const startServer = () => {
   app.listen(PORT, () => console.info(`Server listening on port: ${PORT}`));
 };
-
-function getError(errors: string) {
-  return {
-    errors: {
-      body: errors.split(":::"),
-    },
-  };
-}
