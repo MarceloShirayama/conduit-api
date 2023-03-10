@@ -1,3 +1,4 @@
+import { AuthorIdType } from "core/article/types";
 import { jwtVerify, signJwt } from "../../jwt/jose";
 
 export type JwtPayload = {
@@ -12,5 +13,6 @@ export const generateToken = async (
 export const verifyToken = async (token: string) => {
   const { payload } = await jwtVerify(token);
 
-  return payload;
+  const parserPayload = payload as { id: AuthorIdType; exp?: number };
+  return parserPayload;
 };

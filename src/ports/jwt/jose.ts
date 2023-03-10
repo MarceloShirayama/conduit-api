@@ -11,7 +11,7 @@ const encodedSecret = new TextEncoder().encode(secretKey);
 
 export async function signJwt(
   payload: jose.JWTPayload,
-  expirationTime: string = "10m"
+  expirationTime: string = "10s"
 ) {
   const alg = "HS256";
   const jwt = await new jose.SignJWT(payload)

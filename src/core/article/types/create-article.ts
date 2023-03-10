@@ -3,11 +3,15 @@ import { UUID, withMessage } from "io-ts-types";
 
 import { BodyType, DescriptionType, TagType, TitleType } from "../../types";
 
+const AuthorIdType = withMessage(UUID, () => "Invalid author id.");
+
+export type AuthorIdType = t.TypeOf<typeof AuthorIdType>;
+
 export const CreateArticleRequiredType = t.strict({
   title: TitleType,
   description: DescriptionType,
   body: BodyType,
-  authorId: withMessage(UUID, () => "Invalid author id."),
+  authorId: AuthorIdType,
 });
 
 export const CreateArticleOptionalType = t.partial({

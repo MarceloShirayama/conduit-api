@@ -1,4 +1,5 @@
 import { CommentType, CreateCommentType } from "../types";
+import { AuthorIdType } from "../../../core/article/types";
 import {
   addCommentToAnArticle,
   AddCommentToAnArticle,
@@ -7,7 +8,7 @@ import { OutsideFunction } from "../../ports";
 
 export type DBComment = CommentType & {
   articleId: string;
-  authorId: string;
+  authorId: AuthorIdType;
 };
 
 export type OutsideAddCommentToAnArticleInDB = OutsideFunction<
