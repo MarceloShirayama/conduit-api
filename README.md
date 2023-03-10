@@ -1,4 +1,4 @@
-# RealWorld API Spec
+# [RealWorld API Spec](https://github.com/gothinkster/realworld)
 
 ### Authentication Header:
 
