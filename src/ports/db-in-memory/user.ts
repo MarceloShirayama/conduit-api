@@ -19,6 +19,8 @@ export const createUserInDB = <OutsideRegisterUserInDB>(async (data) => {
     email: data.email,
     username: data.username,
     password,
+    bio: "",
+    image: "",
   };
 
   db.userByEmail[data.email] = id;
@@ -38,11 +40,5 @@ export const loginUserInDB = <OutsideLoginUserInDB>(async (data) => {
 
   const { password, ...user } = userFound;
 
-  return {
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    bio: user.bio ?? "",
-    image: user.image ?? "",
-  };
+  return user;
 });
