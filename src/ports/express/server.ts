@@ -8,7 +8,6 @@ import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 import { createArticleHttpAdapter } from "../adapters/http/modules";
 
-import { getEnvironmentVariable } from "../../helpers";
 import { getError } from "../adapters/http";
 import {
   addCommentToAnArticleHttpAdapter,
@@ -18,8 +17,6 @@ import {
 import { JwtPayload, verifyToken } from "../adapters/jwt";
 
 type Request = { auth?: JwtPayload } & ExpressRequest;
-
-const PORT = getEnvironmentVariable("PORT");
 
 const app = express();
 
@@ -95,6 +92,8 @@ app.post(
   }
 );
 
-export const startServer = () => {
-  app.listen(PORT, () => console.info(`Server listening on port: ${PORT}`));
+export const startServer = (port: number, host: string) => {
+  app.listen(port, host, () =>
+    console.info(`Server listening on port: ${port}`)
+  );
 };

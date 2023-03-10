@@ -11,7 +11,6 @@ import {
 } from "../../core/article/types";
 import { CommentType } from "../../core/comment/types";
 import { CreateUserType, LoginUserType } from "../../core/user/types";
-import { getEnvironmentVariable } from "../../helpers";
 import {
   addCommentToAnArticleHttpAdapter,
   createArticleHttpAdapter,
@@ -20,8 +19,6 @@ import {
 } from "../adapters/http/modules";
 
 const app = fastify({ logger: true });
-
-const PORT = Number(getEnvironmentVariable("PORT"));
 
 declare module "fastify" {
   interface FastifyRequest {
@@ -116,9 +113,9 @@ app.post<
   }
 });
 
-export const startServer = () => {
+export const startServer = (port: number, host: string) => {
   try {
-    app.listen({ port: PORT });
+    app.listen({ port, host });
   } catch (error) {
     app.log.error(error);
     process.exit(1);
