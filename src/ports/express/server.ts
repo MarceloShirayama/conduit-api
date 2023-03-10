@@ -50,7 +50,7 @@ app.post("/api/users/login", async (req: Request, res: Response) => {
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.header("authorization")?.split("Bearer ")[1] ?? "";
+    const token = req.header("authorization")?.split("Token ")[1] ?? "";
     const payload = await verifyToken(token);
 
     req.auth = payload;

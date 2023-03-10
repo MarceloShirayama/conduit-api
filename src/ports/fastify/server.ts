@@ -45,7 +45,7 @@ app.addHook("preValidation", async (req, reply) => {
     /^\/api\/articles\/([a-z|-]+)\/comments/gm.test(url)
   ) {
     try {
-      const token = req.headers.authorization?.replace("Bearer ", "") ?? "";
+      const token = req.headers.authorization?.replace("Token ", "") ?? "";
       const payload = await verifyToken(token);
       req.auth = payload;
     } catch (error) {
