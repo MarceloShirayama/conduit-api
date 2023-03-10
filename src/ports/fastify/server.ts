@@ -2,8 +2,6 @@ import fastify from "fastify";
 import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 
-import { verifyToken } from "../../ports/adapters/jwt";
-
 import {
   ArticleType,
   AuthorIdType,
@@ -11,6 +9,7 @@ import {
 } from "../../core/article/types";
 import { CommentType } from "../../core/comment/types";
 import { CreateUserType, LoginUserType } from "../../core/user/types";
+import { getToken } from "../adapters/http";
 import {
   addCommentToAnArticleHttpAdapter,
   createArticleHttpAdapter,
@@ -42,8 +41,7 @@ app.addHook("preValidation", async (req, reply) => {
     /^\/api\/articles\/([a-z|-]+)\/comments/gm.test(url)
   ) {
     try {
-      const token = req.headers.authorization?.replace("Token ", "") ?? "";
-      const payload = await verifyToken(token);
+      const payload = await getToken(req.headers.authorization);
       req.auth = payload;
     } catch (error) {
       reply.code(401).send("Unauthorized");

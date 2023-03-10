@@ -8,13 +8,13 @@ import { pipe } from "fp-ts/lib/function";
 import * as TE from "fp-ts/TaskEither";
 import { createArticleHttpAdapter } from "../adapters/http/modules";
 
-import { getError } from "../adapters/http";
+import { getError, getToken } from "../adapters/http";
 import {
   addCommentToAnArticleHttpAdapter,
   loginUserHttpAdapter,
   registerUserHttpAdapter,
 } from "../adapters/http/modules";
-import { JwtPayload, verifyToken } from "../adapters/jwt";
+import { JwtPayload } from "../adapters/jwt";
 
 type Request = { auth?: JwtPayload } & ExpressRequest;
 
@@ -47,9 +47,7 @@ app.post("/api/users/login", async (req: Request, res: Response) => {
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.header("authorization")?.split("Token ")[1] ?? "";
-    const payload = await verifyToken(token);
-
+    const payload = await getToken(req.header("authorization"));
     req.auth = payload;
     next();
   } catch (error) {
