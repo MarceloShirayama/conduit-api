@@ -9,6 +9,7 @@ import {
   AuthorIdType,
   CreateArticleType,
 } from "../../core/article/types";
+import { CommentType } from "../../core/comment/types";
 import { CreateUserType, LoginUserType } from "../../core/user/types";
 import { getEnvironmentVariable } from "../../helpers";
 import {
@@ -17,7 +18,10 @@ import {
   loginUserHttpAdapter,
   registerUserHttpAdapter,
 } from "../adapters/http/modules";
-import { CommentType } from "../../core/comment/types";
+
+const app = fastify({ logger: true });
+
+const PORT = Number(getEnvironmentVariable("PORT"));
 
 declare module "fastify" {
   interface FastifyRequest {
@@ -25,41 +29,14 @@ declare module "fastify" {
   }
 }
 
-const app = fastify({ logger: true });
-
-const PORT = Number(getEnvironmentVariable("PORT"));
-
-type CreateUserApi = {
-  Body: {
-    user: CreateUserType;
-  };
+type IncomeMessageBody<T> = {
+  Body: T;
 };
 
-app.post<CreateUserApi>("/api/users", (req, reply) => {
-  pipe(
-    req.body.user,
-    registerUserHttpAdapter,
-    TE.map((result) => reply.code(201).send(result)),
-    TE.mapLeft((result) => {
-      reply.code(422).send(result);
-    })
-  )();
-});
-
-type LoginUserApi = {
-  Body: {
-    user: LoginUserType;
-  };
+type IncomeMessageBodyAndParams<T, U> = {
+  Body: T;
+  Params: U;
 };
-
-app.post<LoginUserApi>("/api/users/login", (req, reply) => {
-  pipe(
-    req.body.user,
-    loginUserHttpAdapter,
-    TE.map((result) => reply.send(result)),
-    TE.mapLeft((error) => reply.code(422).send(error))
-  )();
-});
 
 app.addHook("preValidation", async (req, reply) => {
   const url = req.raw.url ?? "";
@@ -77,46 +54,58 @@ app.addHook("preValidation", async (req, reply) => {
   }
 });
 
-type CreateArticleApi = {
-  Body: {
-    article: ArticleType;
-  };
-};
-
-app.post<CreateArticleApi>("/api/articles", async (req, reply) => {
-  const auth = req.auth;
-  if (auth) {
-    const data: CreateArticleType = {
-      ...req.body.article,
-      authorId: auth.id,
-    };
-    return pipe(
-      data,
-      createArticleHttpAdapter,
+app.post<IncomeMessageBody<{ user: CreateUserType }>>(
+  "/api/users",
+  (req, reply) => {
+    pipe(
+      req.body.user,
+      registerUserHttpAdapter,
       TE.map((result) => reply.code(201).send(result)),
-      TE.mapLeft((error) => reply.code(400).send(error))
+      TE.mapLeft((result) => {
+        reply.code(422).send(result);
+      })
     )();
   }
-});
+);
 
-type AddCommentApi = {
-  Body: {
-    comment: CommentType;
-  };
-  Params: {
-    slug: string;
-  };
-};
+app.post<IncomeMessageBody<{ user: LoginUserType }>>(
+  "/api/users/login",
+  (req, reply) => {
+    pipe(
+      req.body.user,
+      loginUserHttpAdapter,
+      TE.map((result) => reply.send(result)),
+      TE.mapLeft((error) => reply.code(422).send(error))
+    )();
+  }
+);
 
-app.post<AddCommentApi>("/api/articles/:slug/comments", async (req, reply) => {
-  const auth = req.auth;
-  const slug = req.params.slug;
-  const { comment } = req.body;
-  if (auth) {
+app.post<IncomeMessageBody<{ article: ArticleType }>>(
+  "/api/articles",
+  async (req, reply) => {
+    if (req.auth) {
+      const data: CreateArticleType = {
+        ...req.body.article,
+        authorId: req.auth?.id,
+      };
+      return pipe(
+        data,
+        createArticleHttpAdapter,
+        TE.map((result) => reply.code(201).send(result)),
+        TE.mapLeft((error) => reply.code(400).send(error))
+      )();
+    }
+  }
+);
+
+app.post<
+  IncomeMessageBodyAndParams<{ comment: CommentType }, { slug: string }>
+>("/api/articles/:slug/comments", async (req, reply) => {
+  if (req.auth) {
     const data = {
-      ...comment,
-      authorId: auth.id,
-      articleSlug: slug,
+      ...req.body.comment,
+      authorId: req.auth?.id,
+      articleSlug: req.params.slug,
     };
     return pipe(
       data,
